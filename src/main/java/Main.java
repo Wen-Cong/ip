@@ -18,6 +18,7 @@ public class Main {
             switch (command) {
             case "bye":
                 bot.exit();
+                System.exit(0);
             default:
                 bot.echo(command);
             }

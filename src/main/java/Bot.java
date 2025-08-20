@@ -24,7 +24,6 @@ public class Bot {
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         this.printSeparator();
-        System.exit(0);
     }
 
     /**
