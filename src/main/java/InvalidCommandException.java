@@ -5,6 +5,6 @@ public class InvalidCommandException extends Exception {
      * @param message Message regarding more info of Exception thrown
      */
     public InvalidCommandException(String message) {
-        super(message);
+        super("Invalid Command: " + message);
     }
 }
