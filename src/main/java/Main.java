@@ -10,20 +10,32 @@ public class Main {
         // Print greeting message
         bot.greet();
 
+        // Read user commands and perform actions repeatedly till "bye" command
+        // to exit program
         while (true) {
-            // Read input from console
-            String command = bot.promptUser(scanner);
+            // Prompt user and read input from console
+            String input = bot.promptUser(scanner);
 
-            // Redirect command to invoke operations
-            switch (command) {
-            case "bye":
+            // Split input by space into command type (first word)
+            // and other command information (e.g. input param)
+            String[] commandInfo = input.split(" ");
+
+            // Redirect command type to invoke respective operations
+            switch (commandInfo[0]) {
+            case "bye": // Exit program
                 bot.exit();
                 System.exit(0);
-            case "list":
+            case "list": // Display task list
                 bot.listTasks();
                 break;
-            default:
-                bot.addTask(command);
+            case "mark": // Mark a task as done
+                bot.markTaskAsDone(Integer.parseInt(commandInfo[1]));
+                break;
+            case "unmark": // Mark a task as not done
+                bot.markTaskAsNotDone(Integer.parseInt(commandInfo[1]));
+                break;
+            default: // Add task to task list
+                bot.addTask(input);
             }
 
         }
