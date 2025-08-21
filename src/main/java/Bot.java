@@ -46,14 +46,50 @@ public class Bot {
     }
 
     /**
-     * Add task to task list
+     * Add To-do task to task list
      *
      * @param taskName Task name to be added to taskList
      */
     public void addTask(String taskName) {
-        Task newTask = new Todo(taskName); // create new task
+        Task newTask = new Todo(taskName); // create new to-do task
         this.taskList.add(newTask); // add task to task list
-        System.out.println("added: " + taskName);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + newTask);
+        System.out.println("Now you have "
+                + this.taskList.size() + " tasks in the list.");
+        this.printSeparator();
+    }
+
+    /**
+     * Add Deadline task to task list
+     *
+     * @param taskName Task name to be added to taskList
+     * @param deadline Date time of the task deadline
+     */
+    public void addTask(String taskName, String deadline) {
+        Task newTask = new Deadline(taskName, deadline); // create new deadline task
+        this.taskList.add(newTask); // add task to task list
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + newTask);
+        System.out.println("Now you have "
+                + this.taskList.size() + " tasks in the list.");
+        this.printSeparator();
+    }
+
+    /**
+     * Add Event task to task list
+     *
+     * @param taskName Task name to be added to taskList
+     * @param startTime start date time of the event task
+     * @param endTime end date time of the event task
+     */
+    public void addTask(String taskName, String startTime, String endTime) {
+        Task newTask = new Event(taskName, startTime, endTime); // create new event task
+        this.taskList.add(newTask); // add task to task list
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + newTask);
+        System.out.println("Now you have "
+                + this.taskList.size() + " tasks in the list.");
         this.printSeparator();
     }
 
