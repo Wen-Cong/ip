@@ -19,8 +19,11 @@ public class Main {
             case "bye":
                 bot.exit();
                 System.exit(0);
+            case "list":
+                bot.listItems();
+                break;
             default:
-                bot.echo(command);
+                bot.add(command);
             }
 
         }

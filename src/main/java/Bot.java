@@ -1,11 +1,16 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bot {
     /** Name of the bot */
     private final String name;
 
+    /** List of text entered by user **/
+    private final ArrayList<String> textList;
+
     public Bot(String name) {
         this.name = name;
+        this.textList = new ArrayList<>();
     }
 
     /**
@@ -19,7 +24,7 @@ public class Bot {
     }
 
     /**
-     * Print program exit message and exit the program
+     * Print program exit message
      */
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -34,20 +39,34 @@ public class Bot {
      */
     public String promptUser(Scanner scanner) {
         System.out.print("Enter your command: ");
+        // Read input from console
         String cmd = scanner.nextLine();
         this.printSeparator();
         return cmd;
     }
 
     /**
-     * Print the message of the given String
+     * Add text to text list
      *
-     * @param msg Message to be echoed and printed
+     * @param msg Message to be added to textList and printed
      */
-    public void echo(String msg) {
-        System.out.println(msg);
+    public void add(String msg) {
+        this.textList.add(msg);
+        System.out.println("added: " + msg);
         this.printSeparator();
     }
+
+    /**
+     * Print every string item in textList
+     */
+    public void listItems() {
+        for (int i = 0; i < this.textList.size(); i++) {
+            int indexNum = i + 1; // Index numbering should start from 1 instead of 0
+            System.out.println(indexNum + ". " + this.textList.get(i));
+        }
+        this.printSeparator();
+    }
+
 
     /**
      * Print separator line that can be used between prompts and messages
