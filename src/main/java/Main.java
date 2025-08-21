@@ -20,10 +20,10 @@ public class Main {
                 bot.exit();
                 System.exit(0);
             case "list":
-                bot.listItems();
+                bot.listTasks();
                 break;
             default:
-                bot.add(command);
+                bot.addTask(command);
             }
 
         }

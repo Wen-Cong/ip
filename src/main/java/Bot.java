@@ -6,11 +6,11 @@ public class Bot {
     private final String name;
 
     /** List of text entered by user **/
-    private final ArrayList<String> textList;
+    private final ArrayList<Task> taskList;
 
     public Bot(String name) {
         this.name = name;
-        this.textList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -46,27 +46,76 @@ public class Bot {
     }
 
     /**
-     * Add text to text list
+     * Add task to task list
      *
-     * @param msg Message to be added to textList and printed
+     * @param taskName Task name to be added to taskList
      */
-    public void add(String msg) {
-        this.textList.add(msg);
-        System.out.println("added: " + msg);
+    public void addTask(String taskName) {
+        Task newTask = new Task(taskName); // create new task
+        this.taskList.add(newTask); // add task to task list
+        System.out.println("added: " + taskName);
         this.printSeparator();
     }
 
     /**
-     * Print every string item in textList
+     * Print every task in taskList
      */
-    public void listItems() {
-        for (int i = 0; i < this.textList.size(); i++) {
-            int indexNum = i + 1; // Index numbering should start from 1 instead of 0
-            System.out.println(indexNum + ". " + this.textList.get(i));
+    public void listTasks() {
+        if (this.taskList.isEmpty()) {
+            System.out.println("There are no tasks at the moment");
+            return;
         }
+
+        // Iterate task list and print task
+        for (int i = 0; i < this.taskList.size(); i++) {
+            int indexNum = i + 1; // Index numbering should start from 1 instead of 0
+            System.out.println(indexNum + ". " + this.taskList.get(i));
+        }
+
         this.printSeparator();
     }
 
+    /**
+     * Set task status as done and print confirmation message
+     *
+     * @param index Task index position in Task List, starts from 1
+     */
+    public void markTaskAsDone(int index) {
+        // Validation for index number
+        if (index > this.taskList.size() || index < 1) {
+            System.out.println("Invalid task number");
+            return; // Invalid param, end function
+        }
+
+        Task task = this.taskList.get(index - 1); // Index given starts from 1
+        task.markDone(); // Set task status to done
+
+        // Print confirmation message and new status
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("\t" + task);
+        this.printSeparator();
+    }
+
+    /**
+     * Set task status as not done and print confirmation message
+     *
+     * @param index Task index position in Task List, starts from 1
+     */
+    public void markTaskAsNotDone(int index) {
+        // Validation for index number
+        if (index > this.taskList.size() || index < 1) {
+            System.out.println("Invalid task number");
+            return; // Invalid param, end function
+        }
+
+        Task task = this.taskList.get(index - 1); // Index given starts from 1
+        task.markNotDone(); // Set task status to not done
+
+        // Print confirmation message and new status
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("\t" + task);
+        this.printSeparator();
+    }
 
     /**
      * Print separator line that can be used between prompts and messages
