@@ -115,12 +115,12 @@ public class Bot {
      * Set task status as done and print confirmation message
      *
      * @param index Task index position in Task List, starts from 1
+     * @throws InvalidCommandException if index is out of bound
      */
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index) throws InvalidCommandException {
         // Validation for index number
         if (index > this.taskList.size() || index < 1) {
-            System.out.println("Invalid task number");
-            return; // Invalid param, end function
+            throw new InvalidCommandException("Invalid task number");
         }
 
         Task task = this.taskList.get(index - 1); // Index given starts from 1
@@ -136,12 +136,12 @@ public class Bot {
      * Set task status as not done and print confirmation message
      *
      * @param index Task index position in Task List, starts from 1
+     * @throws InvalidCommandException if index is out of bound
      */
-    public void markTaskAsNotDone(int index) {
+    public void markTaskAsNotDone(int index) throws InvalidCommandException {
         // Validation for index number
         if (index > this.taskList.size() || index < 1) {
-            System.out.println("Invalid task number");
-            return; // Invalid param, end function
+            throw new InvalidCommandException("Invalid task number");
         }
 
         Task task = this.taskList.get(index - 1); // Index given starts from 1
