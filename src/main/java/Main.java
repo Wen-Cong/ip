@@ -116,6 +116,16 @@ public class Main {
                     // Add event task to task list
                     bot.addTask(eventInfo[0], dateInfo[0], dateInfo[1]);
                     break;
+                case "delete":
+                    // Validate command format, re-prompt if incorrect command format
+                    if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
+                        throw new InvalidCommandException(
+                                "Please ensure command is in this format: " +
+                                        "delete <Task Index>");
+                    }
+
+                    // Delete task from task list
+                    bot.removeTask(Integer.parseInt(commandInfo[1]));
                 default:
                     throw new InvalidCommandException("No such command");
                 }

@@ -94,6 +94,29 @@ public class Bot {
     }
 
     /**
+     * Remove the task from task list and print confirmation message
+     *
+     * @param index Task index position in Task List, starting from 1
+     * @throws InvalidCommandException if index is out of bound
+     */
+    public void removeTask(int index) throws InvalidCommandException {
+        // Validation for index number
+        if (index > this.taskList.size() || index < 1) {
+            throw new InvalidCommandException("Invalid task number");
+        }
+
+        // Remove the task from task list
+        Task task = this.taskList.remove(index - 1); // Index given starts from 1
+
+        // Print confirmation message and list count
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t" + task);
+        System.out.println("Now you have "
+                + this.taskList.size() + " tasks in the list.");
+        this.printSeparator();
+    }
+
+    /**
      * Print every task in taskList
      */
     public void listTasks() {
