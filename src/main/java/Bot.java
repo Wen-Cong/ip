@@ -51,7 +51,7 @@ public class Bot {
      * @param taskName Task name to be added to taskList
      */
     public void addTask(String taskName) {
-        Task newTask = new Task(taskName); // create new task
+        Task newTask = new Todo(taskName); // create new task
         this.taskList.add(newTask); // add task to task list
         System.out.println("added: " + taskName);
         this.printSeparator();

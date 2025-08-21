@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     /** Name of the task */
     private final String name;
 
