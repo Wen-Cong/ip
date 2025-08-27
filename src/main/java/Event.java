@@ -12,6 +12,18 @@ public class Event extends Task {
     }
 
     /**
+     * Return the string format of the Event to be written into a file
+     *
+     * @return The string format of Event suitable for file writing
+     **/
+    @Override
+    public String toFileString() {
+        return "E | " + super.toFileString()
+                + " | " + startTime
+                + " | " + endTime + "\n";
+    }
+
+    /**
      * Display string format of Event task with status, task name,
      * start time and end time
      **/

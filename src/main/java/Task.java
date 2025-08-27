@@ -25,6 +25,17 @@ public abstract class Task {
     }
 
     /**
+     * Return the string format of the Task to be written into a file
+     *
+     * @return The string format of Task suitable for file writing
+     **/
+    public String toFileString() {
+        String isDoneString = isDone ? "1" : "0";
+
+        return isDoneString + " | " + name;
+    }
+
+    /**
      * Display string format of Task instance with status and task name
      **/
     @Override
