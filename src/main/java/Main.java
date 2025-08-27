@@ -28,9 +28,11 @@ public class Main {
                 case "bye": // Exit program
                     bot.exit();
                     System.exit(0);
+
                 case "list": // Display task list
                     bot.listTasks();
                     break;
+
                 case "mark": // Mark a task as done
                     // Validate command format, re-prompt if incorrect command format
                     if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
@@ -41,6 +43,7 @@ public class Main {
 
                     bot.markTaskAsDone(Integer.parseInt(commandInfo[1]));
                     break;
+
                 case "unmark": // Mark a task as not done
                     // Validate command format, re-prompt if incorrect command format
                     if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
@@ -51,6 +54,7 @@ public class Main {
 
                     bot.markTaskAsNotDone(Integer.parseInt(commandInfo[1]));
                     break;
+
                 case "todo": // Add to-do task to task list
                     // Validate command format, re-prompt if incorrect command format
                     if (commandInfo.length != 2) {
@@ -62,6 +66,7 @@ public class Main {
                     // Add to-do task to task list
                     bot.addTask(commandInfo[1]);
                     break;
+
                 case "deadline": // Add deadline task to task list
                     // Validate command format, re-prompt if incorrect command format
                     if (commandInfo.length != 2) {
@@ -83,6 +88,7 @@ public class Main {
                     // Add deadline task to task list
                     bot.addTask(deadlineInfo[0], deadlineInfo[1]);
                     break;
+
                 case "event": // Add event task to task list
                     // Validate command format, re-prompt if incorrect command format
                     if (commandInfo.length != 2) {
@@ -116,6 +122,7 @@ public class Main {
                     // Add event task to task list
                     bot.addTask(eventInfo[0], dateInfo[0], dateInfo[1]);
                     break;
+
                 case "delete":
                     // Validate command format, re-prompt if incorrect command format
                     if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
@@ -126,6 +133,8 @@ public class Main {
 
                     // Delete task from task list
                     bot.removeTask(Integer.parseInt(commandInfo[1]));
+                    break;
+
                 default:
                     throw new InvalidCommandException("No such command");
                 }
