@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(taskName);
     }
 
+    public Todo(String taskName, boolean isDone) {
+        super(taskName, isDone);
+    }
+
     /**
      * Return the string format of the To-do to be written into a file
      *

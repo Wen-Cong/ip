@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +46,36 @@ public class FileServices {
 
         // Write to data to file
         Files.writeString(path, data.toString());
+    }
+
+    /**
+     * Reads tasks from the file specified and returns them
+     * as a list of Task objects.
+     * <p>
+     * The method uses {@code Files.readAllLines()} to read all lines from the file.
+     * It then iterates through the list of strings, converting each line back into
+     * a Task object
+     *
+     * @return A list of {@code Task} objects read from the file.
+     * @throws IOException If an I/O error occurs during the file reading process.
+     */
+    public List<Task> readFromFile() throws IOException, IllegalArgumentException {
+        List<Task> taskList = new ArrayList<>();
+
+        // Check if file exist. Create path + file if it doesn't exist
+        ensureFileExists();
+
+        // Read all lines from the file
+        List<String> lines = Files.readAllLines(path);
+
+        // Process each line and create Task objects
+        for (String line : lines) {
+            // Create a task from a string
+            Task task = Task.createTaskFromFileString(line);
+            taskList.add(task);
+        }
+
+        return taskList;
     }
 
     /**

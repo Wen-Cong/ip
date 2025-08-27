@@ -7,6 +7,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public Deadline(String taskName, String deadline, boolean isDone) {
+        super(taskName, isDone);
+        this.deadline = deadline;
+    }
+
     /**
      * Return the string format of the Deadline to be written into a file
      *

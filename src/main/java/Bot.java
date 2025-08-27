@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Bot {
@@ -6,7 +8,7 @@ public class Bot {
     private final String name;
 
     /** List of text entered by user **/
-    private final ArrayList<Task> taskList;
+    private List<Task> taskList;
 
     /** File service API that write and read from file **/
     private final FileServices fileServices;
@@ -15,6 +17,7 @@ public class Bot {
         this.name = name;
         this.taskList = new ArrayList<>();
         this.fileServices = new FileServices("data/taskData.txt");
+        loadTaskList(); // Load task list from file
     }
 
     /**
@@ -243,6 +246,25 @@ public class Bot {
         }
 
         return true;
+    }
+
+    /**
+     * Loads the task list from the file using the {@code FileServices}.
+     * <p>
+     * This method attempts to read the task data from the file and populates
+     * the instance's task list.
+     * Any {@link IOException} that occurs during file reading or an
+     * {@link IllegalArgumentException} resulting from improperly formatted data
+     * within the file will be caught, an error message will be printed to the
+     * console, and the program will continue with an empty task list.
+     */
+    private void loadTaskList() {
+        try {
+            this.taskList = fileServices.readFromFile();
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            this.printSeparator();
+        }
     }
 
     /**

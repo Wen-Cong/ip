@@ -11,6 +11,12 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public Event(String taskName, String startTime, String endTime, boolean isDone) {
+        super(taskName, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     /**
      * Return the string format of the Event to be written into a file
      *
