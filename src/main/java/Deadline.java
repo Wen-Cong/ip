@@ -4,12 +4,14 @@ public class Deadline extends Task {
     /** Deadline date time of the task */
     private final LocalDateTime deadline;
 
-    public Deadline(String taskName, String deadline) {
+    public Deadline(String taskName, String deadline)
+            throws IllegalArgumentException {
         super(taskName);
         this.deadline = DateTimeUtils.fromString(deadline);
     }
 
-    public Deadline(String taskName, String deadline, boolean isDone) {
+    public Deadline(String taskName, String deadline, boolean isDone)
+            throws IllegalArgumentException {
         super(taskName, isDone);
         this.deadline = DateTimeUtils.fromString(deadline);
     }

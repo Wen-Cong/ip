@@ -34,13 +34,13 @@ public class FileServices {
      * @throws IOException If an I/O error occurs during file or directory creation,
      *                     or during the writing process.
      */
-    public void writeToFile(List<Task> taskList) throws IOException {
+    public void writeToFile(TaskList taskList) throws IOException {
         // Check if file exist. Create path + file if it doesn't exist
         ensureFileExists();
 
         // Format task list into String for writing to file
         StringBuilder data = new StringBuilder();
-        for (Task task : taskList) {
+        for (Task task : taskList.getTaskList()) {
             data.append(task.toFileString());
         }
 

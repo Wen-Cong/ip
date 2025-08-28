@@ -7,13 +7,15 @@ public class Event extends Task {
     /** End date time of the event task */
     private final LocalDateTime endTime;
 
-    public Event(String taskName, String startTime, String endTime) {
+    public Event(String taskName, String startTime, String endTime)
+            throws IllegalArgumentException {
         super(taskName);
         this.startTime = DateTimeUtils.fromString(startTime);
         this.endTime = DateTimeUtils.fromString(endTime);
     }
 
-    public Event(String taskName, String startTime, String endTime, boolean isDone) {
+    public Event(String taskName, String startTime, String endTime, boolean isDone)
+            throws IllegalArgumentException {
         super(taskName, isDone);
         this.startTime = DateTimeUtils.fromString(startTime);
         this.endTime = DateTimeUtils.fromString(endTime);
