@@ -1,15 +1,17 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
     /** Deadline date time of the task */
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     public Deadline(String taskName, String deadline) {
         super(taskName);
-        this.deadline = deadline;
+        this.deadline = DateTimeUtils.fromString(deadline);
     }
 
     public Deadline(String taskName, String deadline, boolean isDone) {
         super(taskName, isDone);
-        this.deadline = deadline;
+        this.deadline = DateTimeUtils.fromString(deadline);
     }
 
     /**
@@ -20,16 +22,18 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D | " + super.toFileString()
-                + " | " + deadline + "\n";
+                + " | " + DateTimeUtils.toFileString(deadline) + "\n";
     }
 
     /**
      * Display string format of Deadline task with status, task name
      * and deadline
+     *
+     * @return The string format of Deadline suitable for display
      **/
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + " (by: " + this.deadline + ")";
+                + " (by: " + DateTimeUtils.toDisplayString(deadline) + ")";
     }
 }

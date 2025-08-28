@@ -19,6 +19,8 @@ public class Todo extends Task {
 
     /**
      * Display string format of To-do task with status and task name
+     *
+     * @return The string format of To-do suitable for display
      **/
     @Override
     public String toString() {
