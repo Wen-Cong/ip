@@ -110,6 +110,8 @@ public abstract class Task {
 
     /**
      * Display string format of Task instance with status and task name
+     *
+     * @return The string format of Task suitable for display
      **/
     @Override
     public String toString() {

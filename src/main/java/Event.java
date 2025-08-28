@@ -1,20 +1,22 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     /** Start date time of the event task */
-    private final String startTime;
+    private final LocalDateTime startTime;
 
     /** End date time of the event task */
-    private final String endTime;
+    private final LocalDateTime endTime;
 
     public Event(String taskName, String startTime, String endTime) {
         super(taskName);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = DateTimeUtils.fromString(startTime);
+        this.endTime = DateTimeUtils.fromString(endTime);
     }
 
     public Event(String taskName, String startTime, String endTime, boolean isDone) {
         super(taskName, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = DateTimeUtils.fromString(startTime);
+        this.endTime = DateTimeUtils.fromString(endTime);
     }
 
     /**
@@ -25,18 +27,20 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return "E | " + super.toFileString()
-                + " | " + startTime
-                + " | " + endTime + "\n";
+                + " | " + DateTimeUtils.toFileString(startTime)
+                + " | " + DateTimeUtils.toFileString(endTime) + "\n";
     }
 
     /**
      * Display string format of Event task with status, task name,
      * start time and end time
+     *
+     * @return The string format of Event suitable for display
      **/
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.startTime
-                + ", to: " + this.endTime + ")";
+                + " (from: " + DateTimeUtils.toDisplayString(startTime)
+                + ", to: " + DateTimeUtils.toDisplayString(endTime) + ")";
     }
 }

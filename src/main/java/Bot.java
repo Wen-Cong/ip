@@ -82,21 +82,28 @@ public class Bot {
      * @param deadline Date time of the task deadline
      */
     public void addTask(String taskName, String deadline) {
-        Task newTask = new Deadline(taskName, deadline); // create new deadline task
-        this.taskList.add(newTask); // add task to task list
+        try {
+            Task newTask = new Deadline(taskName, deadline); // create new deadline task
+            this.taskList.add(newTask); // add task to task list
 
-        // Write task list to file
-        boolean isSuccess = saveTaskList();
-        if (!isSuccess) {
-            return;
+            // Write task list to file
+            boolean isSuccess = saveTaskList();
+            if (!isSuccess) {
+                return;
+            }
+
+            // Print success message
+            System.out.println("Got it. I've added this task:");
+            System.out.println("\t" + newTask);
+            System.out.println("Now you have "
+                    + this.taskList.size() + " tasks in the list.");
+            this.printSeparator();
+
+        } catch (IllegalArgumentException e) {
+            // If deadline date string is in incorrect format
+            System.out.println(e.getMessage());
+            this.printSeparator();
         }
-
-        // Print success message
-        System.out.println("Got it. I've added this task:");
-        System.out.println("\t" + newTask);
-        System.out.println("Now you have "
-                + this.taskList.size() + " tasks in the list.");
-        this.printSeparator();
     }
 
     /**
@@ -107,21 +114,27 @@ public class Bot {
      * @param endTime end date time of the event task
      */
     public void addTask(String taskName, String startTime, String endTime) {
-        Task newTask = new Event(taskName, startTime, endTime); // create new event task
-        this.taskList.add(newTask); // add task to task list
+        try {
+            Task newTask = new Event(taskName, startTime, endTime); // create new event task
+            this.taskList.add(newTask); // add task to task list
 
-        // Write task list to file
-        boolean isSuccess = saveTaskList();
-        if (!isSuccess) {
-            return;
+            // Write task list to file
+            boolean isSuccess = saveTaskList();
+            if (!isSuccess) {
+                return;
+            }
+
+            // Print success message
+            System.out.println("Got it. I've added this task:");
+            System.out.println("\t" + newTask);
+            System.out.println("Now you have "
+                    + this.taskList.size() + " tasks in the list.");
+            this.printSeparator();
+        } catch (IllegalArgumentException e) {
+            // If Event date string is in incorrect format
+            System.out.println(e.getMessage());
+            this.printSeparator();
         }
-
-        // Print success message
-        System.out.println("Got it. I've added this task:");
-        System.out.println("\t" + newTask);
-        System.out.println("Now you have "
-                + this.taskList.size() + " tasks in the list.");
-        this.printSeparator();
     }
 
     /**
