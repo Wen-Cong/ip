@@ -1,15 +1,34 @@
 public class AddDeadlineCommand extends Command {
-    private final String taskName;
-    private final String deadline;
+    private final String[] commandInfo;
 
-    public AddDeadlineCommand(String taskName, String deadline) {
-        this.taskName = taskName;
-        this.deadline = deadline;
+    public AddDeadlineCommand(String[] commandInfo) {
+        this.commandInfo = commandInfo;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
         try {
+            // Validate command format, re-prompt if incorrect command format
+            if (commandInfo.length != 2) {
+                throw new InvalidCommandException(
+                        "Please ensure command is in this format: " +
+                                "deadline <Task Name> /by <Date>");
+            }
+
+            // Split the command info with by " /by " to extract task name and deadline
+            String[] deadlineInfo = commandInfo[1].split(" /by ");
+
+            // Validate command format, re-prompt if incorrect command format
+            if (deadlineInfo.length != 2) {
+                throw new InvalidCommandException(
+                        "Please ensure command is in this format: " +
+                                "deadline <Task Name> /by <Date>");
+            }
+
+            String taskName = deadlineInfo[0];
+            String deadline = deadlineInfo[1];
+
+            // Add deadline task
             Task newTask = taskList.addTask(taskName, deadline);
 
             // Write task list to file

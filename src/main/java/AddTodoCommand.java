@@ -1,13 +1,23 @@
 public class AddTodoCommand extends Command {
-    private final String taskName;
+    private final String[] commandInfo;
 
-    public AddTodoCommand(String taskName) {
-        this.taskName = taskName;
+    public AddTodoCommand(String[] commandInfo) {
+        this.commandInfo = commandInfo;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
         try {
+            // Validate command format, re-prompt if incorrect command format
+            if (commandInfo.length != 2) {
+                throw new InvalidCommandException(
+                        "Please ensure command is in this format: " +
+                                "todo <Task Name>");
+            }
+
+            String taskName = commandInfo[1];
+
+            // Add To-do task
             Task newTask = taskList.addTask(taskName);
 
             // Write task list to file
