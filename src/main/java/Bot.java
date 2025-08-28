@@ -49,6 +49,7 @@ public class Bot {
                 case "bye": // Exit program
                     ui.showExitMessage();
                     isExit = true;
+                    break;
 
                 case "list": // Display task list
                     listTasks();
