@@ -29,7 +29,7 @@ public class Bot {
         boolean isExit = false;
 
         // Print greeting message
-        ui.showWelcome(getName());
+        ui.showWelcome(name);
 
         // Read user commands and perform actions repeatedly till "bye" command
         // to exit program
@@ -47,12 +47,12 @@ public class Bot {
                 // Redirect command type to invoke respective operations
                 switch (commandInfo[0]) {
                 case "bye": // Exit program
-                    ui.showExitMessage();
+                    new ExitCommand().execute(taskList, ui, fileServices);
                     isExit = true;
                     break;
 
                 case "list": // Display task list
-                    listTasks();
+                    new ListTaskCommand().execute(taskList, ui, fileServices);
                     break;
 
                 case "mark": // Mark a task as done
@@ -63,7 +63,7 @@ public class Bot {
                                         "mark <Task Index>");
                     }
 
-                    markTaskAsDone(Integer.parseInt(commandInfo[1]));
+                    new MarkTaskCommand(Integer.parseInt(commandInfo[1])).execute(taskList, ui, fileServices);
                     break;
 
                 case "unmark": // Mark a task as not done
@@ -74,7 +74,7 @@ public class Bot {
                                         "mark <Task Index>");
                     }
 
-                    markTaskAsNotDone(Integer.parseInt(commandInfo[1]));
+                    new UnmarkTaskCommand(Integer.parseInt(commandInfo[1])).execute(taskList, ui, fileServices);
                     break;
 
                 case "todo": // Add to-do task to task list
@@ -86,7 +86,7 @@ public class Bot {
                     }
 
                     // Add to-do task to task list
-                    addTask(commandInfo[1]);
+                    new AddTodoCommand(commandInfo[1]).execute(taskList, ui, fileServices);
                     break;
 
                 case "deadline": // Add deadline task to task list
@@ -108,7 +108,7 @@ public class Bot {
                     }
 
                     // Add deadline task to task list
-                    addTask(deadlineInfo[0], deadlineInfo[1]);
+                    new AddDeadlineCommand(deadlineInfo[0], deadlineInfo[1]).execute(taskList, ui, fileServices);
                     break;
 
                 case "event": // Add event task to task list
@@ -142,7 +142,7 @@ public class Bot {
                     }
 
                     // Add event task to task list
-                    addTask(eventInfo[0], dateInfo[0], dateInfo[1]);
+                    new AddEventCommand(eventInfo[0], dateInfo[0], dateInfo[1]).execute(taskList, ui, fileServices);
                     break;
 
                 case "delete":
@@ -154,149 +154,15 @@ public class Bot {
                     }
 
                     // Delete task from task list
-                    removeTask(Integer.parseInt(commandInfo[1]));
+                    new RemoveTaskCommand(Integer.parseInt(commandInfo[1])).execute(taskList, ui, fileServices);
                     break;
 
                 default:
-                    throw new InvalidCommandException("No such command");
+                    new InvalidCommand().execute(taskList, ui, fileServices);
                 }
             } catch (InvalidCommandException e) {
                 ui.showError(e.getMessage());
             }
-        }
-    }
-
-    /**
-     * Getter function for bot name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Add To-do task to task list and write task string to file
-     *
-     * @param taskName Task name to be added to taskList
-     */
-    public void addTask(String taskName) {
-        try {
-            Task newTask = taskList.addTask(taskName);
-
-            // Write task list to file
-            this.fileServices.writeToFile(taskList);
-
-            // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.getSize());
-        } catch (Exception e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    /**
-     * Add Deadline task to task list and write task string to file
-     *
-     * @param taskName Task name to be added to taskList
-     * @param deadline Date time of the task deadline
-     */
-    public void addTask(String taskName, String deadline) {
-        try {
-            Task newTask = taskList.addTask(taskName, deadline);
-
-            // Write task list to file
-            this.fileServices.writeToFile(taskList);
-
-            // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.getSize());
-        } catch (Exception e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    /**
-     * Add Event task to task list and write task string to file
-     *
-     * @param taskName Task name to be added to taskList
-     * @param startTime start date time of the event task
-     * @param endTime end date time of the event task
-     */
-    public void addTask(String taskName, String startTime, String endTime) {
-        try {
-            Task newTask = taskList.addTask(taskName, startTime, endTime);
-
-            // Write task list to file
-            this.fileServices.writeToFile(taskList);
-
-            // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.getSize());
-        } catch (Exception e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    /**
-     * Remove the task from task list and print confirmation message
-     *
-     * @param index Task index position in Task List, starting from 1
-     * @throws InvalidCommandException if index is out of bound
-     */
-    public void removeTask(int index) throws InvalidCommandException {
-        Task task = taskList.removeTask(index);
-
-        try {
-            // Write task list to file
-            this.fileServices.writeToFile(taskList);
-
-            // Print confirmation message and list count
-            ui.showRemoveTaskSuccess(task, taskList.getSize());
-        } catch (Exception e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    /**
-     * Display every task in taskList
-     */
-    public void listTasks() {
-        ui.showTaskList(taskList.getTaskList());
-    }
-
-    /**
-     * Set task status as done and print confirmation message
-     *
-     * @param index Task index position in Task List, starts from 1
-     * @throws InvalidCommandException if index is out of bound
-     */
-    public void markTaskAsDone(int index) throws InvalidCommandException {
-        Task task = taskList.markTaskAsDone(index);
-
-        try {
-            // Write task list to file
-            this.fileServices.writeToFile(taskList);
-
-            // Print confirmation message and new status
-            ui.showMarkTaskSuccess(task);
-        } catch (Exception e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    /**
-     * Set task status as not done and print confirmation message
-     *
-     * @param index Task index position in Task List, starts from 1
-     * @throws InvalidCommandException if index is out of bound
-     */
-    public void markTaskAsNotDone(int index) throws InvalidCommandException {
-        Task task = taskList.markTaskAsNotDone(index);
-
-        try {
-            // Write task list to file
-            this.fileServices.writeToFile(taskList);
-
-            // Print confirmation message and new status
-            ui.showUnmarkTaskSuccess(task);
-        } catch (Exception e) {
-            ui.showError(e.getMessage());
         }
     }
 }
