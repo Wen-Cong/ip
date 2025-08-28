@@ -1,13 +1,11 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Bot {
     /** Name of the bot */
     private final String name;
 
-    /** List of text entered by user **/
-    private List<Task> taskList;
+    /** List of tasks **/
+    private TaskList taskList;
 
     /** File service API that write and read from file **/
     private final FileServices fileServices;
@@ -17,9 +15,14 @@ public class Bot {
     public Bot(String name) {
         this.name = name;
         this.ui = new Ui();
-        this.taskList = new ArrayList<>();
         this.fileServices = new FileServices("data/taskData.txt");
-        loadTaskList(); // Load task list from file
+
+        try {
+            this.taskList = new TaskList(fileServices.readFromFile());
+        } catch (IOException | IllegalArgumentException e) {
+            ui.showError(e.getMessage());
+            taskList = new TaskList();
+        }
     }
 
     /**
@@ -36,14 +39,13 @@ public class Bot {
      */
     public void addTask(String taskName) {
         try {
-            Task newTask = new Todo(taskName); // create new to-do task
-            this.taskList.add(newTask); // add task to task list
+            Task newTask = taskList.addTask(taskName);
 
             // Write task list to file
-            this.fileServices.writeToFile(this.taskList);
+            this.fileServices.writeToFile(taskList);
 
             // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.size());
+            ui.showAddTaskSuccess(newTask, taskList.getSize());
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }
@@ -57,14 +59,13 @@ public class Bot {
      */
     public void addTask(String taskName, String deadline) {
         try {
-            Task newTask = new Deadline(taskName, deadline); // create new deadline task
-            this.taskList.add(newTask); // add task to task list
+            Task newTask = taskList.addTask(taskName, deadline);
 
             // Write task list to file
-            this.fileServices.writeToFile(this.taskList);
+            this.fileServices.writeToFile(taskList);
 
             // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.size());
+            ui.showAddTaskSuccess(newTask, taskList.getSize());
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }
@@ -79,14 +80,13 @@ public class Bot {
      */
     public void addTask(String taskName, String startTime, String endTime) {
         try {
-            Task newTask = new Event(taskName, startTime, endTime); // create new event task
-            this.taskList.add(newTask); // add task to task list
+            Task newTask = taskList.addTask(taskName, startTime, endTime);
 
             // Write task list to file
-            this.fileServices.writeToFile(this.taskList);
+            this.fileServices.writeToFile(taskList);
 
             // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.size());
+            ui.showAddTaskSuccess(newTask, taskList.getSize());
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }
@@ -99,20 +99,14 @@ public class Bot {
      * @throws InvalidCommandException if index is out of bound
      */
     public void removeTask(int index) throws InvalidCommandException {
-        // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
-            throw new InvalidCommandException("Invalid task number");
-        }
-
-        // Remove the task from task list
-        Task task = this.taskList.remove(index - 1); // Index given starts from 1
+        Task task = taskList.removeTask(index);
 
         try {
             // Write task list to file
-            this.fileServices.writeToFile(this.taskList);
+            this.fileServices.writeToFile(taskList);
 
             // Print confirmation message and list count
-            ui.showRemoveTaskSuccess(task, taskList.size());
+            ui.showRemoveTaskSuccess(task, taskList.getSize());
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }
@@ -122,7 +116,7 @@ public class Bot {
      * Display every task in taskList
      */
     public void listTasks() {
-        ui.showTaskList(this.taskList);
+        ui.showTaskList(taskList.getTaskList());
     }
 
     /**
@@ -132,17 +126,11 @@ public class Bot {
      * @throws InvalidCommandException if index is out of bound
      */
     public void markTaskAsDone(int index) throws InvalidCommandException {
-        // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
-            throw new InvalidCommandException("Invalid task number");
-        }
-
-        Task task = this.taskList.get(index - 1); // Index given starts from 1
-        task.markDone(); // Set task status to done
+        Task task = taskList.markTaskAsDone(index);
 
         try {
             // Write task list to file
-            this.fileServices.writeToFile(this.taskList);
+            this.fileServices.writeToFile(taskList);
 
             // Print confirmation message and new status
             ui.showMarkTaskSuccess(task);
@@ -158,39 +146,15 @@ public class Bot {
      * @throws InvalidCommandException if index is out of bound
      */
     public void markTaskAsNotDone(int index) throws InvalidCommandException {
-        // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
-            throw new InvalidCommandException("Invalid task number");
-        }
-
-        Task task = this.taskList.get(index - 1); // Index given starts from 1
-        task.markNotDone(); // Set task status to not done
+        Task task = taskList.markTaskAsNotDone(index);
 
         try {
             // Write task list to file
-            this.fileServices.writeToFile(this.taskList);
+            this.fileServices.writeToFile(taskList);
 
             // Print confirmation message and new status
             ui.showUnmarkTaskSuccess(task);
         } catch (Exception e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    /**
-     * Loads the task list from the file using the {@code FileServices}.
-     * <p>
-     * This method attempts to read the task data from the file and populates
-     * the instance's task list.
-     * Any {@link IOException} that occurs during file reading or an
-     * {@link IllegalArgumentException} resulting from improperly formatted data
-     * within the file will be caught, an error message will be printed to the
-     * console, and the program will continue with an empty task list.
-     */
-    private void loadTaskList() {
-        try {
-            this.taskList = fileServices.readFromFile();
-        } catch (IOException | IllegalArgumentException e) {
             ui.showError(e.getMessage());
         }
     }
