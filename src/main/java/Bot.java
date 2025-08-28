@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Bot {
     /** Name of the bot */
@@ -13,43 +12,21 @@ public class Bot {
     /** File service API that write and read from file **/
     private final FileServices fileServices;
 
+    private final Ui ui;
+
     public Bot(String name) {
         this.name = name;
+        this.ui = new Ui();
         this.taskList = new ArrayList<>();
         this.fileServices = new FileServices("data/taskData.txt");
         loadTaskList(); // Load task list from file
     }
 
     /**
-     * Print greeting message
+     * Getter function for bot name
      */
-    public void greet() {
-        this.printSeparator();
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        this.printSeparator();
-    }
-
-    /**
-     * Print program exit message
-     */
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        this.printSeparator();
-    }
-
-    /**
-     * Prompt the user for input
-     *
-     * @param scanner Scanner object to read input from console
-     * @return Command string input entered by the user
-     */
-    public String promptUser(Scanner scanner) {
-        System.out.print("Enter your command: ");
-        // Read input from console
-        String cmd = scanner.nextLine();
-        this.printSeparator();
-        return cmd;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -58,21 +35,18 @@ public class Bot {
      * @param taskName Task name to be added to taskList
      */
     public void addTask(String taskName) {
-        Task newTask = new Todo(taskName); // create new to-do task
-        this.taskList.add(newTask); // add task to task list
+        try {
+            Task newTask = new Todo(taskName); // create new to-do task
+            this.taskList.add(newTask); // add task to task list
 
-        // Write task list to file
-        boolean isSuccess = saveTaskList();
-        if (!isSuccess) {
-            return;
+            // Write task list to file
+            this.fileServices.writeToFile(this.taskList);
+
+            // Print success message
+            ui.showAddTaskSuccess(newTask, taskList.size());
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
         }
-
-        // Print success message
-        System.out.println("Got it. I've added this task:");
-        System.out.println("\t" + newTask);
-        System.out.println("Now you have "
-                + this.taskList.size() + " tasks in the list.");
-        this.printSeparator();
     }
 
     /**
@@ -87,22 +61,12 @@ public class Bot {
             this.taskList.add(newTask); // add task to task list
 
             // Write task list to file
-            boolean isSuccess = saveTaskList();
-            if (!isSuccess) {
-                return;
-            }
+            this.fileServices.writeToFile(this.taskList);
 
             // Print success message
-            System.out.println("Got it. I've added this task:");
-            System.out.println("\t" + newTask);
-            System.out.println("Now you have "
-                    + this.taskList.size() + " tasks in the list.");
-            this.printSeparator();
-
-        } catch (IllegalArgumentException e) {
-            // If deadline date string is in incorrect format
-            System.out.println(e.getMessage());
-            this.printSeparator();
+            ui.showAddTaskSuccess(newTask, taskList.size());
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
         }
     }
 
@@ -119,21 +83,12 @@ public class Bot {
             this.taskList.add(newTask); // add task to task list
 
             // Write task list to file
-            boolean isSuccess = saveTaskList();
-            if (!isSuccess) {
-                return;
-            }
+            this.fileServices.writeToFile(this.taskList);
 
             // Print success message
-            System.out.println("Got it. I've added this task:");
-            System.out.println("\t" + newTask);
-            System.out.println("Now you have "
-                    + this.taskList.size() + " tasks in the list.");
-            this.printSeparator();
-        } catch (IllegalArgumentException e) {
-            // If Event date string is in incorrect format
-            System.out.println(e.getMessage());
-            this.printSeparator();
+            ui.showAddTaskSuccess(newTask, taskList.size());
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
         }
     }
 
@@ -152,36 +107,22 @@ public class Bot {
         // Remove the task from task list
         Task task = this.taskList.remove(index - 1); // Index given starts from 1
 
-        // Write task list to file
-        boolean isSuccess = saveTaskList();
-        if (!isSuccess) {
-            return;
-        }
+        try {
+            // Write task list to file
+            this.fileServices.writeToFile(this.taskList);
 
-        // Print confirmation message and list count
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("\t" + task);
-        System.out.println("Now you have "
-                + this.taskList.size() + " tasks in the list.");
-        this.printSeparator();
+            // Print confirmation message and list count
+            ui.showRemoveTaskSuccess(task, taskList.size());
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     /**
-     * Print every task in taskList
+     * Display every task in taskList
      */
     public void listTasks() {
-        if (this.taskList.isEmpty()) {
-            System.out.println("There are no tasks at the moment");
-            return;
-        }
-
-        // Iterate task list and print task
-        for (int i = 0; i < this.taskList.size(); i++) {
-            int indexNum = i + 1; // Index numbering should start from 1 instead of 0
-            System.out.println(indexNum + ". " + this.taskList.get(i));
-        }
-
-        this.printSeparator();
+        ui.showTaskList(this.taskList);
     }
 
     /**
@@ -199,16 +140,15 @@ public class Bot {
         Task task = this.taskList.get(index - 1); // Index given starts from 1
         task.markDone(); // Set task status to done
 
-        // Write task list to file
-        boolean isSuccess = saveTaskList();
-        if (!isSuccess) {
-            return;
-        }
+        try {
+            // Write task list to file
+            this.fileServices.writeToFile(this.taskList);
 
-        // Print confirmation message and new status
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + task);
-        this.printSeparator();
+            // Print confirmation message and new status
+            ui.showMarkTaskSuccess(task);
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     /**
@@ -226,39 +166,15 @@ public class Bot {
         Task task = this.taskList.get(index - 1); // Index given starts from 1
         task.markNotDone(); // Set task status to not done
 
-        // Write task list to file
-        boolean isSuccess = saveTaskList();
-        if (!isSuccess) {
-            return;
-        }
-
-        // Print confirmation message and new status
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("\t" + task);
-        this.printSeparator();
-    }
-
-    /**
-     * Saves the current list of tasks to a file using the {@link FileServices}.
-     * If the save operation is successful, the method returns true.
-     * If an exception occurs during the file write process, an error message
-     * is printed to the console and the method returns false.
-     *
-     * @return {@code true} if the task list was successfully written to the file;
-     *         {@code false} otherwise.
-     */
-    private boolean saveTaskList() {
-        // Write updated task list to file
         try {
+            // Write task list to file
             this.fileServices.writeToFile(this.taskList);
-        } catch (Exception e) {
-            // Print error message
-            System.out.println(e.getMessage());
-            this.printSeparator();
-            return false;
-        }
 
-        return true;
+            // Print confirmation message and new status
+            ui.showUnmarkTaskSuccess(task);
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     /**
@@ -275,15 +191,7 @@ public class Bot {
         try {
             this.taskList = fileServices.readFromFile();
         } catch (IOException | IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            this.printSeparator();
+            ui.showError(e.getMessage());
         }
-    }
-
-    /**
-     * Print separator line that can be used between prompts and messages
-     */
-    private void printSeparator() {
-        System.out.println("____________________________________________________________");
     }
 }

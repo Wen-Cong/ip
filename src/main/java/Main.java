@@ -1,20 +1,18 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         // Init a Bot to begin program
         Bot bot = new Bot("Lovely");
-        // Create a Scanner object to read input from the console
-        Scanner scanner = new Scanner(System.in);
+
+        Ui ui = new Ui();
 
         // Print greeting message
-        bot.greet();
+        ui.showWelcome(bot.getName());
 
         // Read user commands and perform actions repeatedly till "bye" command
         // to exit program
         while (true) {
             // Prompt user and read input from console
-            String input = bot.promptUser(scanner);
+            String input = ui.promptCommand();
 
             // Split input by space into command type (first word)
             // and other command information (e.g. input param)
@@ -26,7 +24,7 @@ public class Main {
                 // Redirect command type to invoke respective operations
                 switch (commandInfo[0]) {
                 case "bye": // Exit program
-                    bot.exit();
+                    ui.showExitMessage();
                     System.exit(0);
 
                 case "list": // Display task list
@@ -139,7 +137,7 @@ public class Main {
                     throw new InvalidCommandException("No such command");
                 }
             } catch (InvalidCommandException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
     }

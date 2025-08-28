@@ -71,7 +71,7 @@ public abstract class Task {
         // Split string by ' | '
         String[] parts = fileString.split(" \\| ");
 
-        // Check if splied string parts is valid
+        // Check if split string parts is valid
         if (parts.length < 3) {
             throw new IllegalArgumentException("Invalid task format in file: " + fileString);
         }
