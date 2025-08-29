@@ -115,6 +115,25 @@ public class TaskList {
     }
 
     /**
+     * Search for tasks whose names contain the specified keyword (case-insensitive).
+     *
+     * @param keyword the keyword to search for within task names
+     * @return a list of tasks whose names contain the keyword, or an empty list if no matches are found
+     */
+    public List<Task> searchTasksByName(String keyword) {
+        List<Task> filteredList = new ArrayList<>();
+
+        // Add to filter list if task name matches keyword
+        for (Task task : this.taskList) {
+            if (task.isNameMatch(keyword)) {
+                filteredList.add(task);
+            }
+        }
+
+        return filteredList;
+    }
+
+    /**
      * Getter for task list
      *
      * @return bot.task.Task list in {@code List<bot.task.Task>}

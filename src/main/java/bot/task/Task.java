@@ -47,6 +47,15 @@ public abstract class Task {
         return isDoneString + " | " + name;
     }
 
+    /**
+     * Checks if the task name contains the specified keyword (case-insensitive).
+     *
+     * @param keyword the keyword to search for within the task name
+     * @return true if the task name contains the keyword (ignoring case), false otherwise
+     */
+    public boolean isNameMatch(String keyword) {
+        return name.toLowerCase().contains(keyword.toLowerCase());
+    }
 
     /**
      * Creates and returns a {@code bot.task.Task} object from a formatted string retrieved from a file.

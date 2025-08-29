@@ -81,7 +81,7 @@ public class Ui {
 
     public void showTaskList(List<Task> taskList) {
         if (taskList.isEmpty()) {
-            System.out.println("There are no tasks at the moment");
+            System.out.println("No tasks found");
             return;
         }
 
@@ -92,6 +92,11 @@ public class Ui {
         }
 
         this.printSeparator();
+    }
+
+    public void showSearchTaskList(List<Task> taskList) {
+        System.out.println("Here are the matching tasks in your list:");
+        this.showTaskList(taskList);
     }
 
     /**

@@ -1,6 +1,7 @@
 package bot.util;
 
 import bot.command.*;
+import bot.command.FindCommand;
 
 public class Parser {
     public static Command parse(String input) {
@@ -28,6 +29,8 @@ public class Parser {
                     new AddEventCommand(commandInfo);
             case "delete" -> // Delete task from task list
                     new RemoveTaskCommand(commandInfo);
+            case "find" -> // Search for tasks by name
+                    new FindCommand(commandInfo);
             default -> new InvalidCommand();
         };
     }
