@@ -12,11 +12,23 @@ public abstract class Task {
     /** Status of the task, true if task is marked as done */
     private boolean isDone;
 
+    /**
+     * Constructs a Task with the specified name.
+     * The task is initially marked as not completed.
+     *
+     * @param name the name/description of the task
+     */
     public Task(String name) {
         this.name = name;
         isDone = false;
     }
 
+    /**
+     * Constructs a Task with the specified name and completion status.
+     *
+     * @param name the name/description of the task
+     * @param isDone the completion status of the task
+     */
     public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;

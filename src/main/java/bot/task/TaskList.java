@@ -5,13 +5,26 @@ import bot.exception.InvalidCommandException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a collection of tasks and provides methods to manage them.
+ * This class encapsulates a list of tasks and offers operations such as adding,
+ * removing, and marking tasks as complete or incomplete.
+ */
 public class TaskList {
     private final List<Task> taskList;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         taskList = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the provided list of tasks.
+     *
+     * @param taskList the initial list of tasks
+     */
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
@@ -19,7 +32,7 @@ public class TaskList {
     /**
      * Add To-do task to task list
      *
-     * @param taskName bot.task.Task name to be added to taskList
+     * @param taskName Task name to be added to taskList
      * @return The To-do task that is added to task list
      */
     public Task addTask(String taskName) {
@@ -29,9 +42,9 @@ public class TaskList {
     }
 
     /**
-     * Add bot.task.Deadline task to task list
+     * Add deadline task to task list
      *
-     * @param taskName bot.task.Task name to be added to taskList
+     * @param taskName Task name to be added to taskList
      * @param deadline Date time of the task deadline
      * @throws IllegalArgumentException If string date time is in unsupported format
      * @return The new bot.task.Deadline task that is added to task list
@@ -43,13 +56,13 @@ public class TaskList {
     }
 
     /**
-     * Add bot.task.Event task to task list
+     * Add event task to task list
      *
-     * @param taskName bot.task.Task name to be added to taskList
+     * @param taskName Task name to be added to taskList
      * @param startTime start date time of the event task
      * @param endTime end date time of the event task
      * @throws IllegalArgumentException If string date time is in unsupported format
-     * @return The new bot.task.Event task that is added to task list
+     * @return The new event task that is added to task list
      */
     public Task addTask(String taskName, String startTime, String endTime)
             throws IllegalArgumentException {
@@ -59,9 +72,9 @@ public class TaskList {
     }
 
     /**
-     * Remove the task from task list and print confirmation message
+     * Remove the task from task list
      *
-     * @param index bot.task.Task index position in bot.task.Task List, starting from 1
+     * @param index Task index position in task List, starting from 1
      * @throws InvalidCommandException if index is out of bound
      * @return The task that is removed from task list
      */
@@ -79,7 +92,7 @@ public class TaskList {
     /**
      * Set task status as done
      *
-     * @param index bot.task.Task index position in bot.task.Task List, starts from 1
+     * @param index Task index position in task List, starts from 1
      * @throws InvalidCommandException if index is out of bound
      * @return The task which status is mark as done
      */
@@ -98,7 +111,7 @@ public class TaskList {
     /**
      * Set task status as not done
      *
-     * @param index bot.task.Task index position in bot.task.Task List, starts from 1
+     * @param index Task index position in task List, starts from 1
      * @throws InvalidCommandException if index is out of bound
      * @return The task which status is mark as not done
      */
@@ -117,7 +130,7 @@ public class TaskList {
     /**
      * Getter for task list
      *
-     * @return bot.task.Task list in {@code List<bot.task.Task>}
+     * @return Task list in {@code List<Task>}
      */
     public List<Task> getTaskList() {
         return this.taskList;
@@ -126,7 +139,7 @@ public class TaskList {
     /**
      * Return the count for task list
      *
-     * @return bot.task.Task count in task list
+     * @return Task count in task list
      */
     public int getSize() {
         return this.taskList.size();

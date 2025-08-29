@@ -6,13 +6,34 @@ import bot.task.TaskList;
 import bot.ui.Ui;
 import bot.task.Task;
 
+/**
+ * Represents a command to add an event task to the task list.
+ * This command parses event information from user input and creates a new event task.
+ * The command format should be: "event <task name> /from <start date> /to <end date>"
+ */
 public class AddEventCommand extends Command {
     private final String[] commandInfo;
 
+    /**
+     * Constructs an AddEventCommand with the provided command information.
+     *
+     * @param commandInfo an array containing the command details where:
+     *                    - commandInfo[0] should be "event"
+     *                    - commandInfo[1] should contain the task name, start date, and end date
+     *                      in the format: "<task name> /from <start date> /to <end date>"
+     */
     public AddEventCommand(String[] commandInfo) {
         this.commandInfo = commandInfo;
     }
 
+    /**
+     * Executes the add event command by parsing the command information,
+     * validating the format, creating a new event task, and saving it to file.
+     *
+     * @param taskList the task list to which the new event task will be added
+     * @param ui the user interface for displaying messages and errors
+     * @param fileServices the file services for writing the updated task list to storage
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
         try {

@@ -1,8 +1,41 @@
 package bot.util;
 
-import bot.command.*;
+import bot.command.AddDeadlineCommand;
+import bot.command.AddEventCommand;
+import bot.command.AddTodoCommand;
+import bot.command.Command;
+import bot.command.ExitCommand;
+import bot.command.InvalidCommand;
+import bot.command.ListTaskCommand;
+import bot.command.MarkTaskCommand;
+import bot.command.RemoveTaskCommand;
+import bot.command.UnmarkTaskCommand;
 
+/**
+ * A utility class for parsing user input strings into executable commands.
+ * This class analyzes the first word of the input to determine the command type
+ * and creates the appropriate Command object with the remaining input parameters.
+ */
 public class Parser {
+    /**
+     * Parses a user input string and returns the corresponding Command object.
+     * The input is split into the command keyword and its parameters, then the
+     * appropriate Command subclass is instantiated based on the keyword.
+     * <p>
+     * Supported commands:
+     * - "bye": Exit the application
+     * - "list": Display all tasks
+     * - "mark": Mark a task as completed
+     * - "unmark": Mark a task as not completed
+     * - "todo": Add a new to-do task
+     * - "deadline": Add a new deadline task
+     * - "event": Add a new event task
+     * - "delete": Remove a task
+     * - Any other input: Invalid command
+     *
+     * @param input the user input string to parse
+     * @return the Command object corresponding to the parsed input
+     */
     public static Command parse(String input) {
         // Split input by space into command type (first word)
         // and other command information (e.g. input param)

@@ -56,7 +56,7 @@ public class DateTimeUtils {
      * </ul>
      * </p>
      */
-    private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
+    private static final List<DateTimeFormatter> DATE_FORMATTERS = Arrays.asList(
             FILE_FORMATTER,
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
             // Add formatters that append a default time to handle date-only inputs
@@ -86,7 +86,7 @@ public class DateTimeUtils {
      */
     public static LocalDateTime fromString(String dateStr)
             throws IllegalArgumentException {
-        for (DateTimeFormatter formatter : FORMATTERS) {
+        for (DateTimeFormatter formatter : DATE_FORMATTERS) {
             try {
                 // Attempt to parse with the current formatter
                 return LocalDateTime.parse(dateStr, formatter);
