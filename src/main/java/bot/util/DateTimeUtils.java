@@ -29,7 +29,7 @@ public class DateTimeUtils {
      * This formatter is used for parsing user input and read file input from
      * string to {@code LocalDateTime}
      **/
-    private static final DateTimeFormatter fileFormatter
+    private static final DateTimeFormatter FILE_FORMATTER
             = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     /**
@@ -39,7 +39,7 @@ public class DateTimeUtils {
      * This formatter is used for displaying date time in
      * user-friendly format
      **/
-    private static final DateTimeFormatter displayFormatter
+    private static final DateTimeFormatter DISPLAY_FORMATTER
             = DateTimeFormatter.ofPattern("dd MMM yy HH:mm");
 
     /**
@@ -56,8 +56,8 @@ public class DateTimeUtils {
      * </ul>
      * </p>
      */
-    private static final List<DateTimeFormatter> formatters = Arrays.asList(
-            fileFormatter,
+    private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
+            FILE_FORMATTER,
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
             // Add formatters that append a default time to handle date-only inputs
             new DateTimeFormatterBuilder().appendPattern("dd-MM-yyyy")
@@ -68,7 +68,7 @@ public class DateTimeUtils {
                     .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                     .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                     .toFormatter(),
-            displayFormatter
+            DISPLAY_FORMATTER
     );
 
     /**
@@ -86,7 +86,7 @@ public class DateTimeUtils {
      */
     public static LocalDateTime fromString(String dateStr)
             throws IllegalArgumentException {
-        for (DateTimeFormatter formatter : formatters) {
+        for (DateTimeFormatter formatter : FORMATTERS) {
             try {
                 // Attempt to parse with the current formatter
                 return LocalDateTime.parse(dateStr, formatter);
@@ -121,7 +121,7 @@ public class DateTimeUtils {
      * @return A string representing the date and time in a human-readable format.
      */
     public static String toDisplayString(LocalDateTime dateTime) {
-        return dateTime.format(displayFormatter);
+        return dateTime.format(DISPLAY_FORMATTER);
     }
 
     /**
@@ -137,6 +137,6 @@ public class DateTimeUtils {
      * @return A string representing the date and time in a machine-readable format.
      */
     public static String toFileString(LocalDateTime dateTime) {
-        return dateTime.format(fileFormatter);
+        return dateTime.format(FILE_FORMATTER);
     }
 }
