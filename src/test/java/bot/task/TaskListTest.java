@@ -26,7 +26,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void removeTask_outOfBoundIndex_failure() throws InvalidCommandException {
+    public void removeTask_outOfBoundIndex_failure() {
         Task removeTarget = new Deadline("homework", "23-09-2025 2359", false);
         List<Task> data = new ArrayList<>();
         data.add(new Todo("buy food", true));
@@ -37,7 +37,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList(data);
 
         try {
-            Task removedTask = taskList.removeTask(5);
+            taskList.removeTask(5);
         } catch (InvalidCommandException e) {
             assertEquals("Invalid Command: Invalid task number", e.getMessage());
         }
