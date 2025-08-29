@@ -59,7 +59,7 @@ public abstract class Task {
      * <ul>
      *     <li>For a To-do: {@code "T | <isDone> | <taskName>"}</li>
      *     <li>For a bot.task.Deadline: {@code "D | <isDone> | <taskName> | <deadline>"}</li>
-     *     <li>For an bot.task.Event: {@code "E | <isDone> | <taskName> | <from> | <to>"}</li>
+     *     <li>For a bot.task.Event: {@code "E | <isDone> | <taskName> | <from> | <to>"}</li>
      * </ul>
      * The {@code <isDone>} value should be "1" for a completed task and "0" otherwise.
      *
