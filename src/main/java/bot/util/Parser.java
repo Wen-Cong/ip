@@ -10,6 +10,7 @@ import bot.command.ListTaskCommand;
 import bot.command.MarkTaskCommand;
 import bot.command.RemoveTaskCommand;
 import bot.command.UnmarkTaskCommand;
+import bot.command.FindCommand;
 
 /**
  * A utility class for parsing user input strings into executable commands.
@@ -61,6 +62,8 @@ public class Parser {
                     new AddEventCommand(commandInfo);
             case "delete" -> // Delete task from task list
                     new RemoveTaskCommand(commandInfo);
+            case "find" -> // Search for tasks by name
+                    new FindCommand(commandInfo);
             default -> new InvalidCommand();
         };
     }
