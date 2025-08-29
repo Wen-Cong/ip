@@ -6,13 +6,33 @@ import bot.task.TaskList;
 import bot.ui.Ui;
 import bot.task.Task;
 
+/**
+ * Represents a command to unmark a task (mark it as not completed).
+ * This command takes a task index and marks the corresponding task as not done.
+ * The command format should be: "unmark <task index>"
+ */
 public class UnmarkTaskCommand extends Command {
     private final String[] commandInfo;
 
+    /**
+     * Constructs an UnmarkTaskCommand with the provided command information.
+     *
+     * @param commandInfo an array containing the command details where:
+     *                    - commandInfo[0] should be "unmark"
+     *                    - commandInfo[1] should contain the task index as a positive integer
+     */
     public UnmarkTaskCommand(String[] commandInfo) {
         this.commandInfo = commandInfo;
     }
 
+    /**
+     * Executes the unmark task command by parsing the task index, validating the format,
+     * marking the specified task as not completed, and saving the updated task list to file.
+     *
+     * @param taskList the task list containing the task to be unmarked
+     * @param ui the user interface for displaying messages and errors
+     * @param fileServices the file services for writing the updated task list to storage
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
         try {

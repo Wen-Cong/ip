@@ -6,13 +6,33 @@ import bot.task.TaskList;
 import bot.ui.Ui;
 import bot.task.Task;
 
+/**
+ * Represents a command to add a deadline task to the task list.
+ * This command parses deadline information from user input and creates a new deadline task.
+ * The command format should be: "deadline <task name> /by <deadline date>"
+ */
 public class AddDeadlineCommand extends Command {
     private final String[] commandInfo;
 
+    /**
+     * Constructs an AddDeadlineCommand with the provided command information.
+     *
+     * @param commandInfo an array containing the command details where:
+     *                    - commandInfo[0] should be "deadline"
+     *                    - commandInfo[1] should contain the task name and deadline separated by " /by "
+     */
     public AddDeadlineCommand(String[] commandInfo) {
         this.commandInfo = commandInfo;
     }
 
+    /**
+     * Executes the add deadline command by parsing the command information,
+     * validating the format, creating a new deadline task, and saving it to file.
+     *
+     * @param taskList the task list to which the new deadline task will be added
+     * @param ui the user interface for displaying messages and errors
+     * @param fileServices the file services for writing the updated task list to storage
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
         try {
