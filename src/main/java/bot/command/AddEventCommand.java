@@ -63,7 +63,7 @@ public class AddEventCommand extends Command {
             if (dateInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "event <bot.task.Task Name> /from <Start Date> /to <End Date>");
+                                "event <Task Name> /from <Start Date> /to <End Date>");
             }
 
             String taskName = eventInfo[0];

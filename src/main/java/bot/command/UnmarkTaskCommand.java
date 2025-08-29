@@ -40,7 +40,7 @@ public class UnmarkTaskCommand extends Command {
             if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "unmark <bot.task.Task Index>");
+                                "unmark <Task Index>");
             }
 
             int index = Integer.parseInt(commandInfo[1]);

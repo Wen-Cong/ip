@@ -40,7 +40,7 @@ public class RemoveTaskCommand extends Command {
             if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "delete <bot.task.Task Index>");
+                                "delete <Task Index>");
             }
 
             int index = Integer.parseInt(commandInfo[1]);
