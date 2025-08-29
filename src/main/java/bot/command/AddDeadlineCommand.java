@@ -20,7 +20,7 @@ public class AddDeadlineCommand extends Command {
             if (commandInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "deadline <bot.task.Task Name> /by <Date>");
+                                "deadline <Task Name> /by <Date>");
             }
 
             // Split the command info with by " /by " to extract task name and deadline

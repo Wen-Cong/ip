@@ -20,7 +20,7 @@ public class AddTodoCommand extends Command {
             if (commandInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "todo <bot.task.Task Name>");
+                                "todo <Task Name>");
             }
 
             String taskName = commandInfo[1];

@@ -111,7 +111,7 @@ public abstract class Task {
     }
 
     /**
-     * Display string format of bot.task.Task instance with status and task name
+     * Return string format of bot.task.Task instance with status and task name
      *
      * @return The string format of bot.task.Task suitable for display
      **/
