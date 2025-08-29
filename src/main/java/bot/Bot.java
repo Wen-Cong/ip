@@ -1,3 +1,11 @@
+package bot;
+
+import bot.command.Command;
+import bot.service.FileServices;
+import bot.task.TaskList;
+import bot.ui.Ui;
+import bot.util.Parser;
+
 import java.io.IOException;
 
 public class Bot {
@@ -36,7 +44,7 @@ public class Bot {
             // Prompt user and read input from console
             String input = ui.promptCommand();
 
-            // Parse user input into Command object
+            // Parse user input into bot.command.Command object
             Command command = Parser.parse(input);
 
             command.execute(taskList, ui, fileServices);

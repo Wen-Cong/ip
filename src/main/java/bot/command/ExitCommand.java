@@ -1,3 +1,9 @@
+package bot.command;
+
+import bot.service.FileServices;
+import bot.task.TaskList;
+import bot.ui.Ui;
+
 public class ExitCommand extends Command {
     private boolean isExecuted = false;
 

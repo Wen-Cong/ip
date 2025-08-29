@@ -1,7 +1,15 @@
-public class UnmarkTaskCommand extends Command {
+package bot.command;
+
+import bot.service.FileServices;
+import bot.exception.InvalidCommandException;
+import bot.task.TaskList;
+import bot.ui.Ui;
+import bot.task.Task;
+
+public class AddTodoCommand extends Command {
     private final String[] commandInfo;
 
-    public UnmarkTaskCommand(String[] commandInfo) {
+    public AddTodoCommand(String[] commandInfo) {
         this.commandInfo = commandInfo;
     }
 
@@ -9,22 +17,22 @@ public class UnmarkTaskCommand extends Command {
     public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
         try {
             // Validate command format, re-prompt if incorrect command format
-            if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
+            if (commandInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "unmark <Task Index>");
+                                "todo <bot.task.Task Name>");
             }
 
-            int index = Integer.parseInt(commandInfo[1]);
+            String taskName = commandInfo[1];
 
-            // Unmark Task
-            Task task = taskList.markTaskAsNotDone(index);
+            // Add To-do task
+            Task newTask = taskList.addTask(taskName);
 
             // Write task list to file
             fileServices.writeToFile(taskList);
 
-            // Print confirmation message and new status
-            ui.showUnmarkTaskSuccess(task);
+            // Print success message
+            ui.showAddTaskSuccess(newTask, taskList.getSize());
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }

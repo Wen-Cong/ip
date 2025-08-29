@@ -1,7 +1,15 @@
-public class AddTodoCommand extends Command {
+package bot.command;
+
+import bot.service.FileServices;
+import bot.exception.InvalidCommandException;
+import bot.task.TaskList;
+import bot.ui.Ui;
+import bot.task.Task;
+
+public class RemoveTaskCommand extends Command {
     private final String[] commandInfo;
 
-    public AddTodoCommand(String[] commandInfo) {
+    public RemoveTaskCommand(String[] commandInfo) {
         this.commandInfo = commandInfo;
     }
 
@@ -9,22 +17,21 @@ public class AddTodoCommand extends Command {
     public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
         try {
             // Validate command format, re-prompt if incorrect command format
-            if (commandInfo.length != 2) {
+            if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "todo <Task Name>");
+                                "delete <bot.task.Task Index>");
             }
 
-            String taskName = commandInfo[1];
+            int index = Integer.parseInt(commandInfo[1]);
 
-            // Add To-do task
-            Task newTask = taskList.addTask(taskName);
+            Task task = taskList.removeTask(index);
 
             // Write task list to file
             fileServices.writeToFile(taskList);
 
-            // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.getSize());
+            // Print confirmation message and list count
+            ui.showRemoveTaskSuccess(task, taskList.getSize());
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }

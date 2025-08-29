@@ -1,3 +1,7 @@
+package bot.ui;
+
+import bot.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +34,7 @@ public class Ui {
     /**
      * Prompt the user for command input
      *
-     * @return Command string input entered by the user
+     * @return bot.command.Command string input entered by the user
      */
     public String promptCommand() {
         System.out.print("Enter your command: ");

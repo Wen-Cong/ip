@@ -1,3 +1,7 @@
+package bot.task;
+
+import bot.exception.InvalidCommandException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +19,7 @@ public class TaskList {
     /**
      * Add To-do task to task list
      *
-     * @param taskName Task name to be added to taskList
+     * @param taskName bot.task.Task name to be added to taskList
      * @return The To-do task that is added to task list
      */
     public Task addTask(String taskName) {
@@ -25,12 +29,12 @@ public class TaskList {
     }
 
     /**
-     * Add Deadline task to task list
+     * Add bot.task.Deadline task to task list
      *
-     * @param taskName Task name to be added to taskList
+     * @param taskName bot.task.Task name to be added to taskList
      * @param deadline Date time of the task deadline
      * @throws IllegalArgumentException If string date time is in unsupported format
-     * @return The new Deadline task that is added to task list
+     * @return The new bot.task.Deadline task that is added to task list
      */
     public Task addTask(String taskName, String deadline) throws IllegalArgumentException {
         Task newTask = new Deadline(taskName, deadline); // create new deadline task
@@ -39,13 +43,13 @@ public class TaskList {
     }
 
     /**
-     * Add Event task to task list
+     * Add bot.task.Event task to task list
      *
-     * @param taskName Task name to be added to taskList
+     * @param taskName bot.task.Task name to be added to taskList
      * @param startTime start date time of the event task
      * @param endTime end date time of the event task
      * @throws IllegalArgumentException If string date time is in unsupported format
-     * @return The new Event task that is added to task list
+     * @return The new bot.task.Event task that is added to task list
      */
     public Task addTask(String taskName, String startTime, String endTime)
             throws IllegalArgumentException {
@@ -57,7 +61,7 @@ public class TaskList {
     /**
      * Remove the task from task list and print confirmation message
      *
-     * @param index Task index position in Task List, starting from 1
+     * @param index bot.task.Task index position in bot.task.Task List, starting from 1
      * @throws InvalidCommandException if index is out of bound
      * @return The task that is removed from task list
      */
@@ -75,7 +79,7 @@ public class TaskList {
     /**
      * Set task status as done
      *
-     * @param index Task index position in Task List, starts from 1
+     * @param index bot.task.Task index position in bot.task.Task List, starts from 1
      * @throws InvalidCommandException if index is out of bound
      * @return The task which status is mark as done
      */
@@ -94,7 +98,7 @@ public class TaskList {
     /**
      * Set task status as not done
      *
-     * @param index Task index position in Task List, starts from 1
+     * @param index bot.task.Task index position in bot.task.Task List, starts from 1
      * @throws InvalidCommandException if index is out of bound
      * @return The task which status is mark as not done
      */
@@ -113,7 +117,7 @@ public class TaskList {
     /**
      * Getter for task list
      *
-     * @return Task list in {@code List<Task>}
+     * @return bot.task.Task list in {@code List<bot.task.Task>}
      */
     public List<Task> getTaskList() {
         return this.taskList;
@@ -122,7 +126,7 @@ public class TaskList {
     /**
      * Return the count for task list
      *
-     * @return Task count in task list
+     * @return bot.task.Task count in task list
      */
     public int getSize() {
         return this.taskList.size();

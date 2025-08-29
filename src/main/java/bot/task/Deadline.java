@@ -1,7 +1,11 @@
+package bot.task;
+
+import bot.util.DateTimeUtils;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    /** Deadline date time of the task */
+    /** bot.task.Deadline date time of the task */
     private final LocalDateTime deadline;
 
     public Deadline(String taskName, String deadline)
@@ -17,9 +21,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the string format of the Deadline to be written into a file
+     * Return the string format of the bot.task.Deadline to be written into a file
      *
-     * @return The string format of Deadline suitable for file writing
+     * @return The string format of bot.task.Deadline suitable for file writing
      **/
     @Override
     public String toFileString() {
@@ -28,10 +32,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Display string format of Deadline task with status, task name
+     * Display string format of bot.task.Deadline task with status, task name
      * and deadline
      *
-     * @return The string format of Deadline suitable for display
+     * @return The string format of bot.task.Deadline suitable for display
      **/
     @Override
     public String toString() {
