@@ -1,3 +1,5 @@
+package bot.task;
+
 /**
  * Represents a generic task with a description and a completion status.
  * <p>
@@ -35,9 +37,9 @@ public abstract class Task {
     }
 
     /**
-     * Return the string format of the Task to be written into a file
+     * Return the string format of the bot.task.Task to be written into a file
      *
-     * @return The string format of Task suitable for file writing
+     * @return The string format of bot.task.Task suitable for file writing
      **/
     public String toFileString() {
         String isDoneString = isDone ? "1" : "0";
@@ -47,23 +49,23 @@ public abstract class Task {
 
 
     /**
-     * Creates and returns a {@code Task} object from a formatted string retrieved from a file.
+     * Creates and returns a {@code bot.task.Task} object from a formatted string retrieved from a file.
      * <p>
      * This static factory method parses a single line of text. The method
-     * determines the specific type of task (To-do, Deadline, or Event) based on a type
+     * determines the specific type of task (To-do, bot.task.Deadline, or bot.task.Event) based on a type
      * identifier and then constructs the appropriate subclass instance.
      * <p>
      * The expected format for the input string is a set of pipe-separated values:
      * <ul>
      *     <li>For a To-do: {@code "T | <isDone> | <taskName>"}</li>
-     *     <li>For a Deadline: {@code "D | <isDone> | <taskName> | <deadline>"}</li>
-     *     <li>For an Event: {@code "E | <isDone> | <taskName> | <from> | <to>"}</li>
+     *     <li>For a bot.task.Deadline: {@code "D | <isDone> | <taskName> | <deadline>"}</li>
+     *     <li>For an bot.task.Event: {@code "E | <isDone> | <taskName> | <from> | <to>"}</li>
      * </ul>
      * The {@code <isDone>} value should be "1" for a completed task and "0" otherwise.
      *
      * @param fileString The single line of text read from the task file.
-     * @return A {@code Task} object, which could be a {@code To-do}, {@code Deadline},
-     *         or {@code Event} instance, corresponding to the data in the input string.
+     * @return A {@code bot.task.Task} object, which could be a {@code To-do}, {@code bot.task.Deadline},
+     *         or {@code bot.task.Event} instance, corresponding to the data in the input string.
      * @throws IllegalArgumentException If the file string is not in the expected format.
      */
     public static Task createTaskFromFileString(String fileString)
@@ -109,9 +111,9 @@ public abstract class Task {
     }
 
     /**
-     * Display string format of Task instance with status and task name
+     * Display string format of bot.task.Task instance with status and task name
      *
-     * @return The string format of Task suitable for display
+     * @return The string format of bot.task.Task suitable for display
      **/
     @Override
     public String toString() {

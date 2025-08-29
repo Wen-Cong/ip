@@ -1,7 +1,15 @@
-public class RemoveTaskCommand extends Command {
+package bot.command;
+
+import bot.service.FileServices;
+import bot.exception.InvalidCommandException;
+import bot.task.TaskList;
+import bot.ui.Ui;
+import bot.task.Task;
+
+public class UnmarkTaskCommand extends Command {
     private final String[] commandInfo;
 
-    public RemoveTaskCommand(String[] commandInfo) {
+    public UnmarkTaskCommand(String[] commandInfo) {
         this.commandInfo = commandInfo;
     }
 
@@ -12,18 +20,19 @@ public class RemoveTaskCommand extends Command {
             if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "delete <Task Index>");
+                                "unmark <bot.task.Task Index>");
             }
 
             int index = Integer.parseInt(commandInfo[1]);
 
-            Task task = taskList.removeTask(index);
+            // Unmark bot.task.Task
+            Task task = taskList.markTaskAsNotDone(index);
 
             // Write task list to file
             fileServices.writeToFile(taskList);
 
-            // Print confirmation message and list count
-            ui.showRemoveTaskSuccess(task, taskList.getSize());
+            // Print confirmation message and new status
+            ui.showUnmarkTaskSuccess(task);
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }

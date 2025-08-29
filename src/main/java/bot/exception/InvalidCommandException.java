@@ -1,3 +1,5 @@
+package bot.exception;
+
 public class InvalidCommandException extends Exception {
     /**
      * Constructor
@@ -5,6 +7,6 @@ public class InvalidCommandException extends Exception {
      * @param message Message regarding more info of Exception thrown
      */
     public InvalidCommandException(String message) {
-        super("Invalid Command: " + message);
+        super("Invalid bot.command.Command: " + message);
     }
 }

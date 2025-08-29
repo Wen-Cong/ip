@@ -1,3 +1,7 @@
+package bot.util;
+
+import bot.command.*;
+
 public class Parser {
     public static Command parse(String input) {
         // Split input by space into command type (first word)

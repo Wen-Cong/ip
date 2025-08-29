@@ -1,3 +1,11 @@
+package bot.command;
+
+import bot.service.FileServices;
+import bot.exception.InvalidCommandException;
+import bot.task.TaskList;
+import bot.ui.Ui;
+import bot.task.Task;
+
 public class AddEventCommand extends Command {
     private final String[] commandInfo;
 
@@ -12,7 +20,7 @@ public class AddEventCommand extends Command {
             if (commandInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "event <Task Name> /from <Start Date> /to <End Date>");
+                                "event <bot.task.Task Name> /from <Start Date> /to <End Date>");
             }
 
             // Split the command info with by "/from" to extract task name
@@ -24,7 +32,7 @@ public class AddEventCommand extends Command {
             if (eventInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "event <Task Name> /from <Start Date> /to <End Date>");
+                                "event <bot.task.Task Name> /from <Start Date> /to <End Date>");
             }
 
             // Extract start and end date from the separated eventInfo (taskName, date)
@@ -34,7 +42,7 @@ public class AddEventCommand extends Command {
             if (dateInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "event <Task Name> /from <Start Date> /to <End Date>");
+                                "event <bot.task.Task Name> /from <Start Date> /to <End Date>");
             }
 
             String taskName = eventInfo[0];

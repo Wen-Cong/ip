@@ -1,3 +1,11 @@
+package bot.command;
+
+import bot.service.FileServices;
+import bot.exception.InvalidCommandException;
+import bot.task.TaskList;
+import bot.ui.Ui;
+import bot.task.Task;
+
 public class AddDeadlineCommand extends Command {
     private final String[] commandInfo;
 
@@ -12,7 +20,7 @@ public class AddDeadlineCommand extends Command {
             if (commandInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "deadline <Task Name> /by <Date>");
+                                "deadline <bot.task.Task Name> /by <Date>");
             }
 
             // Split the command info with by " /by " to extract task name and deadline
@@ -22,7 +30,7 @@ public class AddDeadlineCommand extends Command {
             if (deadlineInfo.length != 2) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
-                                "deadline <Task Name> /by <Date>");
+                                "deadline <bot.task.Task Name> /by <Date>");
             }
 
             String taskName = deadlineInfo[0];

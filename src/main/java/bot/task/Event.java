@@ -1,3 +1,7 @@
+package bot.task;
+
+import bot.util.DateTimeUtils;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -22,9 +26,9 @@ public class Event extends Task {
     }
 
     /**
-     * Return the string format of the Event to be written into a file
+     * Return the string format of the bot.task.Event to be written into a file
      *
-     * @return The string format of Event suitable for file writing
+     * @return The string format of bot.task.Event suitable for file writing
      **/
     @Override
     public String toFileString() {
@@ -34,10 +38,10 @@ public class Event extends Task {
     }
 
     /**
-     * Display string format of Event task with status, task name,
+     * Display string format of bot.task.Event task with status, task name,
      * start time and end time
      *
-     * @return The string format of Event suitable for display
+     * @return The string format of bot.task.Event suitable for display
      **/
     @Override
     public String toString() {

@@ -1,3 +1,8 @@
+package bot.service;
+
+import bot.task.TaskList;
+import bot.task.Task;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +18,7 @@ public class FileServices {
     private final Path path;
 
     /**
-     * Constructs a {@code FileServices} instance to operate on a file at the specified path.
+     * Constructs a {@code bot.service.FileServices} instance to operate on a file at the specified path.
      * The file does not need to exist when this object is created.
      *
      * @param path The string representation of the file path.
@@ -30,7 +35,7 @@ public class FileServices {
      * a string representation suitable for file storage, and writes the combined
      * string to the file, overwriting its contents.
      *
-     * @param taskList The list of {@code Task} objects to be written to the file.
+     * @param taskList The list of {@code bot.task.Task} objects to be written to the file.
      * @throws IOException If an I/O error occurs during file or directory creation,
      *                     or during the writing process.
      */
@@ -50,13 +55,13 @@ public class FileServices {
 
     /**
      * Reads tasks from the file specified and returns them
-     * as a list of Task objects.
+     * as a list of bot.task.Task objects.
      * <p>
      * The method uses {@code Files.readAllLines()} to read all lines from the file.
      * It then iterates through the list of strings, converting each line back into
-     * a Task object
+     * a bot.task.Task object
      *
-     * @return A list of {@code Task} objects read from the file.
+     * @return A list of {@code bot.task.Task} objects read from the file.
      * @throws IOException If an I/O error occurs during the file reading process.
      */
     public List<Task> readFromFile() throws IOException, IllegalArgumentException {
@@ -68,7 +73,7 @@ public class FileServices {
         // Read all lines from the file
         List<String> lines = Files.readAllLines(path);
 
-        // Process each line and create Task objects
+        // Process each line and create bot.task.Task objects
         for (String line : lines) {
             // Create a task from a string
             Task task = Task.createTaskFromFileString(line);
