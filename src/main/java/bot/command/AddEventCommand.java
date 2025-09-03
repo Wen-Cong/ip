@@ -3,7 +3,7 @@ package bot.command;
 import bot.service.FileServices;
 import bot.exception.InvalidCommandException;
 import bot.task.TaskList;
-import bot.ui.Ui;
+import bot.ui.ResponseMessage;
 import bot.task.Task;
 
 /**
@@ -31,11 +31,10 @@ public class AddEventCommand extends Command {
      * validating the format, creating a new event task, and saving it to file.
      *
      * @param taskList the task list to which the new event task will be added
-     * @param ui the user interface for displaying messages and errors
      * @param fileServices the file services for writing the updated task list to storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
+    public void execute(TaskList taskList, FileServices fileServices) {
         try {
             // Validate command format, re-prompt if incorrect command format
             if (commandInfo.length != 2) {
@@ -76,10 +75,10 @@ public class AddEventCommand extends Command {
             // Write task list to file
             fileServices.writeToFile(taskList);
 
-            // Print success message
-            ui.showAddTaskSuccess(newTask, taskList.getSize());
+            // Set success message
+            super.setResponse(ResponseMessage.getAddTaskSuccessMessage(newTask, taskList.getSize()));
         } catch (Exception e) {
-            ui.showError(e.getMessage());
+            super.setResponse(e.getMessage());
         }
     }
 

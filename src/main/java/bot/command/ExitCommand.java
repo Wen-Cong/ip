@@ -2,7 +2,7 @@ package bot.command;
 
 import bot.service.FileServices;
 import bot.task.TaskList;
-import bot.ui.Ui;
+import bot.ui.ResponseMessage;
 
 /**
  * Represents a command to exit the application.
@@ -19,12 +19,10 @@ public class ExitCommand extends Command {
      * and marking the command as executed.
      *
      * @param taskList the task list (not used in this command)
-     * @param ui the user interface for displaying the exit message
      * @param fileServices the file services (not used in this command)
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
-        ui.showExitMessage();
+    public void execute(TaskList taskList, FileServices fileServices) {
         isExecuted = true;
     }
 

@@ -4,19 +4,38 @@ import bot.exception.InvalidCommandException;
 import bot.service.FileServices;
 import bot.task.Task;
 import bot.task.TaskList;
-import bot.ui.Ui;
+import bot.ui.ResponseMessage;
 
 import java.util.List;
 
+/**
+ * Represents a command to find tasks containing a specific keyword.
+ * This command searches the current task list for tasks whose names contain the provided keyword.
+ */
 public class FindCommand extends Command {
     private final String[] commandInfo;
 
+    /**
+     * Constructs a {@code FindCommand} with the provided command information.
+     * The command information is expected to be an array where the first element is the
+     * command name ("find") and the second element is the search keyword.
+     *
+     * @param commandInfo The array containing the command name and the search keyword.
+     */
     public FindCommand(String[] commandInfo) {
         this.commandInfo = commandInfo;
     }
 
+    /**
+     * Executes the find command.
+     * This method validates the command format, searches for tasks matching the keyword,
+     * and sets the response message to display the filtered list of tasks.
+     *
+     * @param taskList The {@link TaskList} to be searched.
+     * @param fileServices The {@link FileServices} (not used in this command, but required by the parent class).
+     */
     @Override
-    public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
+    public void execute(TaskList taskList, FileServices fileServices) {
         try {
             // Validate command format, re-prompt if incorrect command format
             if (commandInfo.length != 2) {
@@ -30,10 +49,10 @@ public class FindCommand extends Command {
             // Find all tasks that matches keyword
             List<Task> filteredList = taskList.searchTasksByName(keyword);
 
-            // Show the filtered task list to user
-            ui.showSearchTaskList(filteredList);
+            // Set success message
+            super.setResponse(ResponseMessage.getSearchTaskListMessage(filteredList));
         } catch (Exception e) {
-            ui.showError(e.getMessage());
+            super.setResponse(e.getMessage());
         }
     }
 

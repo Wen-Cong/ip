@@ -2,7 +2,7 @@ package bot.command;
 
 import bot.service.FileServices;
 import bot.task.TaskList;
-import bot.ui.Ui;
+import bot.ui.ResponseMessage;
 
 /**
  * Represents a command to display the list of all tasks.
@@ -15,12 +15,11 @@ public class ListTaskCommand extends Command {
      * Executes the list task command by displaying all tasks in the task list.
      *
      * @param taskList the task list containing tasks to be displayed
-     * @param ui the user interface for displaying the task list
      * @param fileServices the file services (not used in this command)
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
-        ui.showTaskList(taskList.getTaskList());
+    public void execute(TaskList taskList, FileServices fileServices) {
+        super.setResponse(ResponseMessage.getTaskListMessage(taskList.getTaskList()));
     }
 
     @Override

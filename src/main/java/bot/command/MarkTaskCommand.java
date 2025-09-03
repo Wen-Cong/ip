@@ -3,7 +3,7 @@ package bot.command;
 import bot.service.FileServices;
 import bot.exception.InvalidCommandException;
 import bot.task.TaskList;
-import bot.ui.Ui;
+import bot.ui.ResponseMessage;
 import bot.task.Task;
 
 /**
@@ -30,11 +30,10 @@ public class MarkTaskCommand extends Command {
      * marking the specified task as completed, and saving the updated task list to file.
      *
      * @param taskList the task list containing the task to be marked
-     * @param ui the user interface for displaying messages and errors
      * @param fileServices the file services for writing the updated task list to storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, FileServices fileServices) {
+    public void execute(TaskList taskList, FileServices fileServices) {
         try {
             // Validate command format, re-prompt if incorrect command format
             if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
@@ -51,10 +50,10 @@ public class MarkTaskCommand extends Command {
             // Write task list to file
             fileServices.writeToFile(taskList);
 
-            // Print confirmation message and new status
-            ui.showMarkTaskSuccess(task);
+            // Set confirmation message and new status as response
+            super.setResponse(ResponseMessage.getMarkTaskSuccessMessage(task));
         } catch (Exception e) {
-            ui.showError(e.getMessage());
+            super.setResponse(e.getMessage());
         }
     }
 
