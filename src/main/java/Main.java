@@ -1,9 +1,31 @@
-import bot.Bot;
+import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) {
-        // Init a bot to begin program
-        Bot bot = new Bot("Lovely", "data/taskData.txt");
-        bot.run();
+import bot.Bot;
+import bot.ui.MainWindow;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+/**
+ * A GUI for Duke using FXML.
+ */
+public class Main extends Application {
+
+    private final Bot bot = new Bot("Lovely", "data/taskData.txt");
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setBot(bot);  // inject the Duke instance
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

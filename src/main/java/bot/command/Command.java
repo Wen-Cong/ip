@@ -2,7 +2,6 @@ package bot.command;
 
 import bot.service.FileServices;
 import bot.task.TaskList;
-import bot.ui.Ui;
 
 /**
  * Abstract base class for all commands in the bot application.
@@ -11,15 +10,16 @@ import bot.ui.Ui;
  * implementations for executing the command and determining if it should exit the application.
  */
 public abstract class Command {
+    private String response;
+
     /**
      * Executes the command with the given parameters.
      * This method should contain the specific logic for each command type.
      *
      * @param taskList the task list to operate on
-     * @param ui the user interface for displaying messages and handling user interaction
      * @param fileServices the file services for reading from and writing to storage
      */
-    public abstract void execute(TaskList taskList, Ui ui, FileServices fileServices);
+    public abstract void execute(TaskList taskList, FileServices fileServices);
 
     /**
      * Determines whether this command should cause the application to exit.
@@ -27,4 +27,22 @@ public abstract class Command {
      * @return true if the application should exit after executing this command, false otherwise
      */
     public abstract boolean isExit();
+
+    /**
+     * Return the generated response message after task execution
+     *
+     * @return The command response string message
+     */
+    public String getResponse() {
+        return response;
+    }
+
+    /**
+     * Set the generated response message
+     *
+     * @param response The command response string message
+     */
+    protected void setResponse(String response) {
+        this.response = response;
+    }
 }
