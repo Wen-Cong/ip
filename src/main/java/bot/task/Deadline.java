@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * This class extends the base Task class and adds deadline-specific functionality.
  */
 public class Deadline extends Task {
-    /** bot.task.Deadline date time of the task */
+    /** Deadline date time of the task */
     private final LocalDateTime deadline;
 
     /**

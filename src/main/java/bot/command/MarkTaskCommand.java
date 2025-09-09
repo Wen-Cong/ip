@@ -47,6 +47,8 @@ public class MarkTaskCommand extends Command {
             // Mark task
             Task task = taskList.markTaskAsDone(index);
 
+            assert task != null : "Task mark done should not be null";
+
             // Write task list to file
             fileServices.writeToFile(taskList);
 
