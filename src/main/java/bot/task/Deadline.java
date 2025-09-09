@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
  * This class extends the base Task class and adds deadline-specific functionality.
  */
 public class Deadline extends Task {
-    /** bot.task.Deadline date time of the task */
+    private static final String TASK_TYPE = "D";
+
+    /** Deadline date time of the task */
     private final LocalDateTime deadline;
 
     /**
@@ -47,8 +49,9 @@ public class Deadline extends Task {
      **/
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString()
-                + " | " + DateTimeUtils.toFileString(deadline) + "\n";
+        String fieldSeparator = " | ";
+        return TASK_TYPE + fieldSeparator + super.toFileString()
+                + fieldSeparator + DateTimeUtils.toFileString(deadline) + "\n";
     }
 
     /**
@@ -59,7 +62,7 @@ public class Deadline extends Task {
      **/
     @Override
     public String toString() {
-        return "[D]" + super.toString()
+        return "[" + TASK_TYPE + "]" + super.toString()
                 + " (by: " + DateTimeUtils.toDisplayString(deadline) + ")";
     }
 }

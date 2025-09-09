@@ -92,10 +92,12 @@ public abstract class Task {
     public static Task createTaskFromFileString(String fileString)
             throws IllegalArgumentException {
         // Split string by ' | '
-        String[] parts = fileString.split(" \\| ");
+        String fileStringSeparator = " \\| ";
+        String[] parts = fileString.split(fileStringSeparator);
 
         // Check if split string parts is valid
-        if (parts.length < 3) {
+        int minFieldLen = 3;
+        if (parts.length < minFieldLen) {
             throw new IllegalArgumentException("Invalid task format in file: " + fileString);
         }
 

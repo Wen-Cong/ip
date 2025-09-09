@@ -47,7 +47,7 @@ public class TaskList {
      * @param taskName Task name to be added to taskList
      * @param deadline Date time of the task deadline
      * @throws IllegalArgumentException If string date time is in unsupported format
-     * @return The new bot.task.Deadline task that is added to task list
+     * @return The new Deadline task that is added to task list
      */
     public Task addTask(String taskName, String deadline) throws IllegalArgumentException {
         Task newTask = new Deadline(taskName, deadline); // create new deadline task
@@ -80,13 +80,15 @@ public class TaskList {
      */
     public Task removeTask(int index) throws InvalidCommandException {
         // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
+        boolean isValidIndex = index <= this.taskList.size() && index >= 1;
+        if (!isValidIndex) {
             throw new InvalidCommandException("Invalid task number");
         }
 
         // Remove the task from task list
         // Index given starts from 1
-        return this.taskList.remove(index - 1);
+        int actualIndex = index - 1;
+        return this.taskList.remove(actualIndex);
     }
 
     /**
@@ -98,11 +100,13 @@ public class TaskList {
      */
     public Task markTaskAsDone(int index) throws InvalidCommandException {
         // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
+        boolean isValidIndex = index <= this.taskList.size() && index >= 1;
+        if (!isValidIndex) {
             throw new InvalidCommandException("Invalid task number");
         }
 
-        Task task = this.taskList.get(index - 1); // Index given starts from 1
+        int actualIndex = index - 1;
+        Task task = this.taskList.get(actualIndex); // Index given starts from 1
         task.markDone(); // Set task status to done
 
         return task;
@@ -117,11 +121,13 @@ public class TaskList {
      */
     public Task markTaskAsNotDone(int index) throws InvalidCommandException {
         // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
+        boolean isValidIndex = index <= this.taskList.size() && index >= 1;
+        if (!isValidIndex) {
             throw new InvalidCommandException("Invalid task number");
         }
 
-        Task task = this.taskList.get(index - 1); // Index given starts from 1
+        int actualIndex = index - 1;
+        Task task = this.taskList.get(actualIndex); // Index given starts from 1
         task.markNotDone(); // Set task status to not done
 
         return task;

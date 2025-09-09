@@ -1,6 +1,6 @@
 package bot.command;
 
-import bot.service.FileServices;
+import bot.service.FileService;
 import bot.exception.InvalidCommandException;
 import bot.task.TaskList;
 import bot.ui.ResponseMessage;
@@ -30,13 +30,14 @@ public class UnmarkTaskCommand extends Command {
      * marking the specified task as not completed, and saving the updated task list to file.
      *
      * @param taskList the task list containing the task to be unmarked
-     * @param fileServices the file services for writing the updated task list to storage
+     * @param fileService the file services for writing the updated task list to storage
      */
     @Override
-    public void execute(TaskList taskList, FileServices fileServices) {
+    public void execute(TaskList taskList, FileService fileService) {
         try {
             // Validate command format, re-prompt if incorrect command format
-            if (commandInfo.length != 2 || !commandInfo[1].matches("\\d+")) {
+            boolean isValidCommandInfo = commandInfo.length == 2 && commandInfo[1].matches("\\d+");
+            if (!isValidCommandInfo) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
                                 "unmark <Task Index>");
@@ -48,7 +49,7 @@ public class UnmarkTaskCommand extends Command {
             Task task = taskList.markTaskAsNotDone(index);
 
             // Write task list to file
-            fileServices.writeToFile(taskList);
+            fileService.writeToFile(taskList);
 
             // Set confirmation message and new status as response
             super.setResponse(ResponseMessage.getUnmarkTaskSuccessMessage(task));

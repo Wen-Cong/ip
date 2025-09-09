@@ -1,6 +1,6 @@
 package bot.command;
 
-import bot.service.FileServices;
+import bot.service.FileService;
 import bot.task.TaskList;
 
 /**
@@ -17,9 +17,9 @@ public abstract class Command {
      * This method should contain the specific logic for each command type.
      *
      * @param taskList the task list to operate on
-     * @param fileServices the file services for reading from and writing to storage
+     * @param fileService the file services for reading from and writing to storage
      */
-    public abstract void execute(TaskList taskList, FileServices fileServices);
+    public abstract void execute(TaskList taskList, FileService fileService);
 
     /**
      * Determines whether this command should cause the application to exit.
