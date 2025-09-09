@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A utility class for handling file-based operations, specifically for managing a list of tasks.
@@ -65,8 +66,6 @@ public class FileServices {
      * @throws IOException If an I/O error occurs during the file reading process.
      */
     public List<Task> readFromFile() throws IOException, IllegalArgumentException {
-        List<Task> taskList = new ArrayList<>();
-
         // Check if file exist. Create path + file if it doesn't exist
         ensureFileExists();
 
@@ -74,13 +73,7 @@ public class FileServices {
         List<String> lines = Files.readAllLines(path);
 
         // Process each line and create bot.task.Task objects
-        for (String line : lines) {
-            // Create a task from a string
-            Task task = Task.createTaskFromFileString(line);
-            taskList.add(task);
-        }
-
-        return taskList;
+        return lines.stream().map(Task::createTaskFromFileString).toList();
     }
 
     /**
