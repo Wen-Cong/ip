@@ -47,7 +47,7 @@ public class TaskList {
      * @param taskName Task name to be added to taskList
      * @param deadline Date time of the task deadline
      * @throws IllegalArgumentException If string date time is in unsupported format
-     * @return The new bot.task.Deadline task that is added to task list
+     * @return The new Deadline task that is added to task list
      */
     public Task addTask(String taskName, String deadline) throws IllegalArgumentException {
         Task newTask = new Deadline(taskName, deadline); // create new deadline task

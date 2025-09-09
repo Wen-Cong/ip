@@ -58,6 +58,8 @@ public class AddDeadlineCommand extends Command {
             // Add deadline task
             Task newTask = taskList.addTask(taskName, deadline);
 
+            assert newTask != null : "Task added should not be null";
+
             // Write task list to file
             fileServices.writeToFile(taskList);
 

@@ -44,8 +44,10 @@ public class UnmarkTaskCommand extends Command {
 
             int index = Integer.parseInt(commandInfo[1]);
 
-            // Unmark bot.task.Task
+            // Unmark Task
             Task task = taskList.markTaskAsNotDone(index);
+
+            assert task != null : "Task mark undone should not be null";
 
             // Write task list to file
             fileServices.writeToFile(taskList);
