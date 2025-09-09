@@ -1,7 +1,7 @@
 package bot;
 
 import bot.command.Command;
-import bot.service.FileServices;
+import bot.service.FileService;
 import bot.task.TaskList;
 import bot.util.Parser;
 
@@ -20,7 +20,7 @@ public class Bot {
     private TaskList taskList;
 
     /** File service API that write and read from file **/
-    private final FileServices fileServices;
+    private final FileService fileService;
 
     /**
      * Constructs a Bot instance with the specified name and storage path.
@@ -32,10 +32,10 @@ public class Bot {
      */
     public Bot(String name, String storagePath) {
         this.name = name;
-        this.fileServices = new FileServices(storagePath);
+        this.fileService = new FileService(storagePath);
 
         try {
-            this.taskList = new TaskList(fileServices.readFromFile());
+            this.taskList = new TaskList(fileService.readFromFile());
         } catch (IOException | IllegalArgumentException e) {
             taskList = new TaskList();
         }
@@ -54,7 +54,7 @@ public class Bot {
         // Parse user input into Command object
         Command command = Parser.parse(input);
 
-        command.execute(taskList, fileServices);
+        command.execute(taskList, fileService);
 
         if (command.isExit()) {
             System.exit(0);

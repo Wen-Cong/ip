@@ -6,6 +6,8 @@ package bot.task;
  */
 public class Todo extends Task {
 
+    private static final String TASK_TYPE = "T";
+
     /**
      * Constructs a To-do task with the specified task name.
      * The task is initially marked as not completed.
@@ -34,7 +36,8 @@ public class Todo extends Task {
      **/
     @Override
     public String toFileString() {
-        return "T | " + super.toFileString() + "\n";
+        String fieldSeparator = " | ";
+        return TASK_TYPE + fieldSeparator + super.toFileString() + "\n";
     }
 
     /**
@@ -45,6 +48,6 @@ public class Todo extends Task {
      **/
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + TASK_TYPE + "]" + super.toString();
     }
 }

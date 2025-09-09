@@ -1,7 +1,7 @@
 package bot.command;
 
 import bot.exception.InvalidCommandException;
-import bot.service.FileServices;
+import bot.service.FileService;
 import bot.task.Task;
 import bot.task.TaskList;
 import bot.ui.ResponseMessage;
@@ -32,13 +32,14 @@ public class FindCommand extends Command {
      * and sets the response message to display the filtered list of tasks.
      *
      * @param taskList The {@link TaskList} to be searched.
-     * @param fileServices The {@link FileServices} (not used in this command, but required by the parent class).
+     * @param fileService The {@link FileService} (not used in this command, but required by the parent class).
      */
     @Override
-    public void execute(TaskList taskList, FileServices fileServices) {
+    public void execute(TaskList taskList, FileService fileService) {
         try {
             // Validate command format, re-prompt if incorrect command format
-            if (commandInfo.length != 2) {
+            boolean isValidCommandInfo = commandInfo.length == 2;
+            if (!isValidCommandInfo) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
                                 "find <Search Keyword>");
