@@ -40,7 +40,8 @@ public class Parser {
     public static Command parse(String input) {
         // Split input by space into command type (first word)
         // and other command information (e.g. input param)
-        String[] commandInfo = input.split(" ", 2);
+        String commandSeparator = " ";
+        String[] commandInfo = input.split(commandSeparator, 2);
 
         String instruction = commandInfo[0];
 

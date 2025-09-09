@@ -15,16 +15,16 @@ import java.util.stream.Collectors;
  * A utility class for handling file-based operations, specifically for managing a list of tasks.
  * This class uses the `java.nio.file` API for file system access.
  */
-public class FileServices {
+public class FileService {
     private final Path path;
 
     /**
-     * Constructs a {@code bot.service.FileServices} instance to operate on a file at the specified path.
+     * Constructs a {@code bot.service.FileService} instance to operate on a file at the specified path.
      * The file does not need to exist when this object is created.
      *
      * @param path The string representation of the file path.
      */
-    public FileServices(String path) {
+    public FileService(String path) {
         this.path = Paths.get(path);
     }
 
@@ -84,13 +84,16 @@ public class FileServices {
      * @throws IOException If an I/O error occurs while creating directories or the file.
      */
     private void ensureFileExists() throws IOException {
-        if (!Files.exists(path)) {
-            // Create parent folder directories if it doesn't exist
-            Files.createDirectories(path.getParent());
-
-            // Create an empty file
-            Files.createFile(path);
+        if (Files.exists(path)) {
+            // File exist, do nothing
+            return;
         }
+
+        // Create parent folder directories if it doesn't exist
+        Files.createDirectories(path.getParent());
+
+        // Create an empty file
+        Files.createFile(path);
     }
 }
 

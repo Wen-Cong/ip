@@ -80,13 +80,15 @@ public class TaskList {
      */
     public Task removeTask(int index) throws InvalidCommandException {
         // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
+        boolean isValidIndex = index <= this.taskList.size() && index >= 1;
+        if (!isValidIndex) {
             throw new InvalidCommandException("Invalid task number");
         }
 
         // Remove the task from task list
         // Index given starts from 1
-        return this.taskList.remove(index - 1);
+        int actualIndex = index - 1;
+        return this.taskList.remove(actualIndex);
     }
 
     /**
@@ -98,11 +100,13 @@ public class TaskList {
      */
     public Task markTaskAsDone(int index) throws InvalidCommandException {
         // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
+        boolean isValidIndex = index <= this.taskList.size() && index >= 1;
+        if (!isValidIndex) {
             throw new InvalidCommandException("Invalid task number");
         }
 
-        Task task = this.taskList.get(index - 1); // Index given starts from 1
+        int actualIndex = index - 1;
+        Task task = this.taskList.get(actualIndex); // Index given starts from 1
         task.markDone(); // Set task status to done
 
         return task;
@@ -117,11 +121,13 @@ public class TaskList {
      */
     public Task markTaskAsNotDone(int index) throws InvalidCommandException {
         // Validation for index number
-        if (index > this.taskList.size() || index < 1) {
+        boolean isValidIndex = index <= this.taskList.size() && index >= 1;
+        if (!isValidIndex) {
             throw new InvalidCommandException("Invalid task number");
         }
 
-        Task task = this.taskList.get(index - 1); // Index given starts from 1
+        int actualIndex = index - 1;
+        Task task = this.taskList.get(actualIndex); // Index given starts from 1
         task.markNotDone(); // Set task status to not done
 
         return task;

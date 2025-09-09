@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
  * This class extends the base Task class and adds event-specific functionality.
  */
 public class Event extends Task {
+    private static final String TASK_TYPE = "E";
+
     /** Start date time of the event task */
     private final LocalDateTime startTime;
 
@@ -54,9 +56,10 @@ public class Event extends Task {
      **/
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString()
-                + " | " + DateTimeUtils.toFileString(startTime)
-                + " | " + DateTimeUtils.toFileString(endTime) + "\n";
+        String fieldSeparator = " | ";
+        return TASK_TYPE + fieldSeparator + super.toFileString()
+                + fieldSeparator + DateTimeUtils.toFileString(startTime)
+                + fieldSeparator + DateTimeUtils.toFileString(endTime) + "\n";
     }
 
     /**
@@ -67,7 +70,7 @@ public class Event extends Task {
      **/
     @Override
     public String toString() {
-        return "[E]" + super.toString()
+        return "[" + TASK_TYPE + "]" + super.toString()
                 + " (from: " + DateTimeUtils.toDisplayString(startTime)
                 + ", to: " + DateTimeUtils.toDisplayString(endTime) + ")";
     }

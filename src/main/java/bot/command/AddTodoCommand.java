@@ -1,6 +1,6 @@
 package bot.command;
 
-import bot.service.FileServices;
+import bot.service.FileService;
 import bot.exception.InvalidCommandException;
 import bot.task.TaskList;
 import bot.ui.ResponseMessage;
@@ -30,13 +30,14 @@ public class AddTodoCommand extends Command {
      * validating the format, creating a new to-do task, and saving it to file.
      *
      * @param taskList the task list to which the new to-do task will be added
-     * @param fileServices the file services for writing the updated task list to storage
+     * @param fileService the file services for writing the updated task list to storage
      */
     @Override
-    public void execute(TaskList taskList, FileServices fileServices) {
+    public void execute(TaskList taskList, FileService fileService) {
         try {
             // Validate command format, re-prompt if incorrect command format
-            if (commandInfo.length != 2) {
+            boolean isValidCommandInfo = commandInfo.length == 2;
+            if (!isValidCommandInfo) {
                 throw new InvalidCommandException(
                         "Please ensure command is in this format: " +
                                 "todo <Task Name>");
@@ -50,7 +51,7 @@ public class AddTodoCommand extends Command {
             assert newTask != null : "Task added should not be null";
 
             // Write task list to file
-            fileServices.writeToFile(taskList);
+            fileService.writeToFile(taskList);
 
             // Set success message
             super.setResponse(ResponseMessage.getAddTaskSuccessMessage(newTask, taskList.getSize()));
