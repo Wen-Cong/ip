@@ -47,6 +47,8 @@ public class RemoveTaskCommand extends Command {
 
             Task task = taskList.removeTask(index);
 
+            assert task != null : "task should not be null";
+
             // Write task list to file
             fileService.writeToFile(taskList);
 

@@ -48,6 +48,8 @@ public class AddTodoCommand extends Command {
             // Add To-do task
             Task newTask = taskList.addTask(taskName);
 
+            assert newTask != null : "Task added should not be null";
+
             // Write task list to file
             fileService.writeToFile(taskList);
 
