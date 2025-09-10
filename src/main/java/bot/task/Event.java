@@ -49,6 +49,10 @@ public class Event extends Task {
         this.endTime = DateTimeUtils.fromString(endTime);
     }
 
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
     /**
      * Return the string format of the bot.task.Event to be written into a file
      *
@@ -60,6 +64,28 @@ public class Event extends Task {
         return TASK_TYPE + fieldSeparator + super.toFileString()
                 + fieldSeparator + DateTimeUtils.toFileString(startTime)
                 + fieldSeparator + DateTimeUtils.toFileString(endTime) + "\n";
+    }
+
+    /**
+     * Compares this event task to another task based on their date/time for sorting.
+     *
+     * @param otherTask the task to be compared with this event task
+     * @return a negative integer if this task should come before the other task,
+     *         zero if they are considered equal for date sorting,
+     *         or a positive integer if this task should come after the other task
+     * @throws IllegalArgumentException if the {@code otherTask} is not a recognized subclass
+     */
+    @Override
+    public int compareDateTo(Task otherTask) {
+        if (otherTask instanceof Todo) {
+            return -1;
+        } else if (otherTask instanceof Deadline) {
+            return endTime.compareTo(((Deadline) otherTask).getDeadline());
+        } else if (otherTask instanceof Event) {
+            return endTime.compareTo(((Event) otherTask).endTime);
+        } else {
+            throw new IllegalArgumentException("Invalid task type");
+        }
     }
 
     /**

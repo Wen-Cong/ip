@@ -5,12 +5,13 @@ import bot.command.AddEventCommand;
 import bot.command.AddTodoCommand;
 import bot.command.Command;
 import bot.command.ExitCommand;
+import bot.command.FindCommand;
 import bot.command.InvalidCommand;
 import bot.command.ListTaskCommand;
 import bot.command.MarkTaskCommand;
 import bot.command.RemoveTaskCommand;
+import bot.command.SortCommand;
 import bot.command.UnmarkTaskCommand;
-import bot.command.FindCommand;
 
 /**
  * A utility class for parsing user input strings into executable commands.
@@ -32,6 +33,7 @@ public class Parser {
      * - "deadline": Add a new deadline task
      * - "event": Add a new event task
      * - "delete": Remove a task
+     * - "sort": Sort task list
      * - Any other input: Invalid command
      *
      * @param input the user input string to parse
@@ -65,6 +67,8 @@ public class Parser {
                     new RemoveTaskCommand(commandInfo);
             case "find" -> // Search for tasks by name
                     new FindCommand(commandInfo);
+            case "sort" -> // Sort task list by name or date
+                    new SortCommand(commandInfo);
             default -> new InvalidCommand();
         };
     }
