@@ -26,7 +26,7 @@ public class TaskList {
      * @param taskList the initial list of tasks
      */
     public TaskList(List<Task> taskList) {
-        this.taskList = taskList;
+        this.taskList = new ArrayList<>(taskList);
     }
 
     /**
@@ -150,6 +150,39 @@ public class TaskList {
         }
 
         return filteredList;
+    }
+
+    /**
+     * Sorts the tasks in the task list alphabetically by their name in ascending order.
+     * <p>
+     * This method modifies the internal task list by sorting it based on the
+     * lexicographical order of the task names. The sorting is performed using
+     * the {@code compareTo} method implemented in the {@code Task} class.
+     * </p>
+     *
+     * @see Task#compareTo(Task)
+     */
+    public void sortTaskByName() {
+        taskList.sort(Task::compareTo);
+    }
+
+    /**
+     * Sorts the tasks in the task list by their date/time in ascending order.
+     * <p>
+     * This method modifies the internal task list by sorting it based on the
+     * chronological order of the tasks. The sorting behavior depends on the
+     * specific task types:
+     * <ul>
+     *   <li>{@code To-do} tasks are sorted before {@code Deadline} and {@code Event} tasks</li>
+     *   <li>{@code Deadline} tasks are compared by their deadline date/time</li>
+     *   <li>{@code Event} tasks are compared by their end date/time</li>
+     * </ul>
+     * The sorting is performed using the {@code compareDateTo} method implemented
+     * in each task subclass.
+     * </p>
+     */
+    public void sortTaskByDate() {
+        taskList.sort(Task::compareDateTo);
     }
 
     /**

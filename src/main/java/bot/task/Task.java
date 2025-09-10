@@ -5,7 +5,7 @@ package bot.task;
  * <p>
  * This abstract class serves as the base for more specific types of tasks
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     /** Name of the task */
     private final String name;
 
@@ -146,4 +146,20 @@ public abstract class Task {
         }
         return status + " " + name;
     }
+
+    /**
+     * Compares this task to another task based on their names in a case-insensitive manner.
+     *
+     * @param otherTask the task to be compared with this task
+     * @return a negative integer, zero, or a positive integer as this task's name
+     *         is less than, equal to, or greater than the specified task's name
+     *         (case-insensitive comparison)
+     * @throws NullPointerException if the specified task is null
+     */
+    @Override
+    public int compareTo(Task otherTask) {
+        return name.toLowerCase().compareTo(otherTask.name.toLowerCase());
+    }
+
+    public abstract int compareDateTo(Task otherTask);
 }

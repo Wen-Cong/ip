@@ -82,4 +82,8 @@ public class ResponseMessage {
     public static String getSearchTaskListMessage(List<Task> taskList) {
         return "Here are the matching tasks in your list: \n" + getTaskListMessage(taskList);
     }
+
+    public static String getSortListMessage(List<Task> taskList) {
+        return "Your list have been sorted: \n" + getTaskListMessage(taskList);
+    }
 }
