@@ -36,12 +36,12 @@ public class MainWindow extends AnchorPane {
     public void setBot(Bot b) {
         bot = b;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(bot.getGreetingMessage(), botImage)
+                DialogBox.getBotDialog(bot.getGreetingMessage(), botImage)
         );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing bot reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = bot.generateResponse(trimmedInput);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, botImage)
+                DialogBox.getBotDialog(response, botImage)
         );
         userInput.clear();
     }
