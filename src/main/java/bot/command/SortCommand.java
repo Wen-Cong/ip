@@ -44,7 +44,7 @@ public class SortCommand extends Command {
             if (!isValidCommandInfo) {
                 throw new InvalidCommandException(
                         """
-                                Please ensure command is one of this:\s
+                                Oh no, command format is not right, let me give you a hint:\s
                                 sort name
                                 sort date""");
             }
@@ -57,7 +57,7 @@ public class SortCommand extends Command {
             case "date" -> taskList.sortTaskByDate();
             default -> throw new InvalidCommandException(
                     """
-                            Please ensure command is one of this:\s
+                            Oh no, command format is not right, let me give you a hint: \s
                             sort name
                             sort date""");
             }

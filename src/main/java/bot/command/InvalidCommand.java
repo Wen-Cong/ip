@@ -18,7 +18,7 @@ public class InvalidCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, FileService fileService) {
-        super.setResponse("No such command!");
+        super.setResponse("I can't do this yet, I'm still learning. Please give me some time");
     }
 
     @Override

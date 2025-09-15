@@ -41,7 +41,7 @@ public class FindCommand extends Command {
             boolean isValidCommandInfo = commandInfo.length == 2;
             if (!isValidCommandInfo) {
                 throw new InvalidCommandException(
-                        "Please ensure command is in this format: " +
+                        "Oh no, command format is not right, let me give you a hint: " +
                                 "find <Search Keyword>");
             }
 
