@@ -29,8 +29,17 @@ public class Event extends Task {
     public Event(String taskName, String startTime, String endTime)
             throws IllegalArgumentException {
         super(taskName);
-        this.startTime = DateTimeUtils.fromString(startTime);
-        this.endTime = DateTimeUtils.fromString(endTime);
+
+        LocalDateTime start = DateTimeUtils.fromString(startTime);
+        LocalDateTime end = DateTimeUtils.fromString(endTime);
+
+        if (!DateTimeUtils.isValidTimeRange(start, end)) {
+            String invalidTimeMsg = "Hey, the date doesn't sound right, do you want to check again?";
+            throw new IllegalArgumentException(invalidTimeMsg);
+        }
+
+        this.startTime = start;
+        this.endTime = end;
     }
 
     /**
