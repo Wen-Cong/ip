@@ -47,7 +47,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = bot.generateResponse(input);
+        String trimmedInput = input.trim();
+        String response = bot.generateResponse(trimmedInput);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, botImage)

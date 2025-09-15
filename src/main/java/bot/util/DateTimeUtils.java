@@ -139,4 +139,15 @@ public class DateTimeUtils {
     public static String toFileString(LocalDateTime dateTime) {
         return dateTime.format(FILE_FORMATTER);
     }
+
+    /**
+     * Checks if the start time is before or equal to the end time.
+     *
+     * @param startTime the start time to check
+     * @param endTime the end time to check against
+     * @return true if startTime is before or equal to endTime, false otherwise
+     */
+    public static boolean isValidTimeRange(LocalDateTime startTime, LocalDateTime endTime) {
+        return !startTime.isAfter(endTime);
+    }
 }
