@@ -98,7 +98,7 @@ public class DateTimeUtils {
         // Date string doesn't match with any of the supported formatters
         throw new IllegalArgumentException(
                 """
-                        Invalid date string format! Ensure date is in these supported format:\
+                        Oh no! I don't support this date format, but you can choose one of these format:\
                         
                         dd-mm-yyyy\
                         

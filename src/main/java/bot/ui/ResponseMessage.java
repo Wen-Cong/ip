@@ -14,7 +14,7 @@ public class ResponseMessage {
      * @return A formatted string confirming the task addition and showing the new task count.
      */
     public static String getAddTaskSuccessMessage(Task task, int taskCount) {
-        return "Got it. I've added this task: " + task
+        return "YAY! You now have another task to work on: " + task
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -26,7 +26,7 @@ public class ResponseMessage {
      * @return A formatted string confirming the task removal and showing the new task count.
      */
     public static String getRemoveTaskSuccessMessage(Task task, int taskCount) {
-        return "Noted. I've removed this task: " + task
+        return "MAGIC!! I have made the task disappear: " + task
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -37,7 +37,7 @@ public class ResponseMessage {
      * @return A formatted string confirming the task has been marked.
      */
     public static String getMarkTaskSuccessMessage(Task task) {
-        return "Nice! I've marked this task as done:" + "\n" + task;
+        return "You're so good that you manage to complete this task:" + "\n" + task;
     }
 
     /**
@@ -47,7 +47,7 @@ public class ResponseMessage {
      * @return A formatted string confirming the task has been unmarked.
      */
     public static String getUnmarkTaskSuccessMessage(Task task) {
-        return "OK, I've marked this task as not done yet:" + "\n" + task;
+        return "Work harder to mark this task as done again! I'm sure you can do it:" + "\n" + task;
     }
 
     /**
@@ -59,7 +59,7 @@ public class ResponseMessage {
      */
     public static String getTaskListMessage(List<Task> taskList) {
         if (taskList.isEmpty()) {
-            return "No tasks found";
+            return "No tasks found, you look free! YAY!";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -80,10 +80,10 @@ public class ResponseMessage {
      * @return A formatted string introducing the search results, followed by the numbered list of matching tasks.
      */
     public static String getSearchTaskListMessage(List<Task> taskList) {
-        return "Here are the matching tasks in your list: \n" + getTaskListMessage(taskList);
+        return "Now I found these task for you, thank me later: \n" + getTaskListMessage(taskList);
     }
 
     public static String getSortListMessage(List<Task> taskList) {
-        return "Your list have been sorted: \n" + getTaskListMessage(taskList);
+        return "I have arranged it neat and nice, here you go: \n" + getTaskListMessage(taskList);
     }
 }

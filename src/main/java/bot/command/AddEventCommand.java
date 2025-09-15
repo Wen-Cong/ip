@@ -40,7 +40,7 @@ public class AddEventCommand extends Command {
             boolean isValidCommandInfo = commandInfo.length == 2;
             if (!isValidCommandInfo) {
                 throw new InvalidCommandException(
-                        "Please ensure command is in this format: " +
+                        "Oh no, command format is not right, let me give you a hint: " +
                                 "event <Task Name> /from <Start Date> /to <End Date>");
             }
 
@@ -53,7 +53,7 @@ public class AddEventCommand extends Command {
             boolean isValidEventInfo = eventInfo.length == 2;
             if (!isValidEventInfo) {
                 throw new InvalidCommandException(
-                        "Please ensure command is in this format: " +
+                        "Oh no, command format is not right, let me give you a hint: " +
                                 "event <Task Name> /from <Start Date> /to <End Date>");
             }
 
@@ -64,7 +64,7 @@ public class AddEventCommand extends Command {
             boolean isValidDateInfo = dateInfo.length == 2;
             if (!isValidDateInfo) {
                 throw new InvalidCommandException(
-                        "Please ensure command is in this format: " +
+                        "Oh no, command format is not right, let me give you a hint: " +
                                 "event <Task Name> /from <Start Date> /to <End Date>");
             }
 
