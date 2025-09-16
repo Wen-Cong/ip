@@ -195,3 +195,5 @@ Never lose progress! Every change is saved automatically to your disk.
 | Sort by Name   | `sort name` |
 | Sort by Date   | `sort date` |
 | Exit Program   | `bye` |
+
+Current version - **v0.2**
