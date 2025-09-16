@@ -55,7 +55,7 @@ public class TaskTest {
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("""
-                        Invalid date string format! Ensure date is in these supported format:\
+                        Oh no! I don't support this date format, but you can choose one of these format:\
                         
                         dd-mm-yyyy\
                         
